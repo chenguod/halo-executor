@@ -1,0 +1,19 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: xxl_job
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 49.233.0.67:8848
+      config:
+        server-addr: 49.233.0.67:8848
+        #文件后缀
+        file-extension: yaml
+        #指定分组
+        group: dev
+        #指定命名空间
+        namespace: public
+        #配置自动刷新
+        refresh-enabled: true
