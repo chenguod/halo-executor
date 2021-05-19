@@ -16,4 +16,4 @@ fi
 echo "----------开始构建镜像......--------------"
 docker build -t xxl-job-executor:latest /home/xxl-job-executor/
 echo "---------运行容器------------"
-docker run -dit --name xxl-job-executor -p 8083:8083 -v /home/xxl-job-executor/logs:/home/xxl-job-executor/logs xxl-job-executor:latest
+docker run -dit --name xxl-job-executor -p 8081:8081 -p 8082:8082 -v /home/xxl-job-executor/logs:/home/xxl-job-executor/logs xxl-job-executor:latest
