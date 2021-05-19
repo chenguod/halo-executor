@@ -16,7 +16,7 @@ public class PushJob {
     public ReturnT<String> PushJobHandler(String param){
         ReturnT<String> returnT = new ReturnT<>();
         returnT.setCode(ReturnT.SUCCESS_CODE);
-        returnT.setContent("test");
+        returnT.setContent("demo");
         returnT.setMsg("<p style=\"color:red\">test</p>");
         return returnT;
     }
