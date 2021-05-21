@@ -1,12 +1,15 @@
 package com.cgd.xxljobexecutor.utils;
 
+import com.cgd.xxljobexecutor.model.XmlDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author 晓果冻
@@ -22,8 +25,9 @@ public class AnalyzingXML {
      * @return
      * @throws Exception
      */
-    public static Document AnalyzingXML(String xml) throws Exception{
+    public static List<XmlDTO> AnalyzingXML(String xml) throws Exception{
         Document doc = null;
+        List<XmlDTO> list = null;
         try {
             // 将字符串转为XML
             doc = DocumentHelper.parseText(xml);
@@ -34,12 +38,13 @@ public class AnalyzingXML {
                 Element tableItem = (Element) Report.next();
                 String url = tableItem.elementTextTrim("loc");
                 String time = tableItem.elementTextTrim("lastmod");
+                list.add(new XmlDTO(url,time));
             }
         } catch (DocumentException e) {
             e.printStackTrace();
         }catch (Exception e){
             e.printStackTrace();
         }
-        return doc;
+        return list;
     }
 }

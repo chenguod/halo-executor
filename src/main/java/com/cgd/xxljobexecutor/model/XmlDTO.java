@@ -14,12 +14,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel
+@ApiModel(value = "XmlDTO",description = "站点地图详情")
 public class XmlDTO {
 
-    @ApiModelProperty(value = "url")
+    @ApiModelProperty(value = "链接")
     private String url;
 
-    @ApiModelProperty(value = "time")
+    @ApiModelProperty(value = "时间")
     private String time;
 }

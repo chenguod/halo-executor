@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cgd.xxljobexecutor.dao.WebHomeDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.cgd.xxljobexecutor.model.WebHomeModel" id="ResultMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="token" column="token" jdbcType="VARCHAR"/>
+        <result property="importTime" column="import_time" jdbcType="DATE"/>
+    </resultMap>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="com.cgd.xxljobexecutor.model.WebHomeModel">
+        insert into web_home(url,token,import_time) values
+        (#{url,jdbcType=VARCHAR},#{token,jdbcType=VARCHAR},now())
+    </insert>
+
+    <select id="selectAll" resultType="java.lang.String">
+        select url from  web_home
+    </select>
+</mapper>
