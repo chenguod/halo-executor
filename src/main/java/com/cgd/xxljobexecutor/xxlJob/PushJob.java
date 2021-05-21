@@ -1,9 +1,10 @@
 package com.cgd.xxljobexecutor.xxlJob;
 
+import com.cgd.xxljobexecutor.model.WebSiteDetailModel;
+import com.cgd.xxljobexecutor.model.WebSiteModel;
 import com.cgd.xxljobexecutor.model.XmlDTO;
-import com.cgd.xxljobexecutor.service.WebHomeService;
+import com.cgd.xxljobexecutor.service.WebSiteService;
 import com.cgd.xxljobexecutor.utils.AnalyzingXML;
-import com.cgd.xxljobexecutor.utils.HttpRequestUtil;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.handler.annotation.XxlJob;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +21,33 @@ import java.util.List;
 public class PushJob {
 
     @Autowired
-    private WebHomeService webHomeService;
+    private WebSiteService webSiteService;
 
     @XxlJob("PushJobHandler")
     public ReturnT<String> PushJobHandler(String param){
-        List<String> xmlList = webHomeService.selectAll();
-        xmlList.stream().forEach(xml->{
+        List<WebSiteModel> xmlList = webSiteService.selectAll();
+        WebSiteDetailModel webSiteDetailModel = null;
+/*        xmlList.stream().flatMap(webSite->{
             try {
-                List<XmlDTO> list = AnalyzingXML.AnalyzingXML(xml);
+                List<XmlDTO> list = AnalyzingXML.AnalyzingXML(webSite.getUrl());
+                webSiteDetailModel.setPId(webSite.getId());
+                return AnalyzingXML.AnalyzingXML(webSite.getUrl());
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        });
+        }).forEach(n->{
+
+        });*/
+/*        xmlList.stream().forEach(xml->{
+            try {
+                List<XmlDTO> list = AnalyzingXML.AnalyzingXML(xml.getUrl());
+                webSiteDetailModel.setPId(xml.getId());
+                webSiteDetailModel.setUrl(xml.getUrl());
+                webSiteDetailModel.setCreateDate();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });*/
         return ReturnT.SUCCESS;
     }
 }

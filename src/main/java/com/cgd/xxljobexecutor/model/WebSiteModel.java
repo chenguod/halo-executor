@@ -9,14 +9,14 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 /**
- * @author chengd
+ * @author 晓果冻
  * @version 1.0
  * @date 2021/5/21 13:35
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class WebHomeModel {
+public class WebSiteModel {
 
     private Integer id;
 

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cgd.xxljobexecutor.dao.WebSiteDetailDao">
+
+    <resultMap type="com.cgd.xxljobexecutor.model.WebSiteDetailModel" id="ResultMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="pId" column="p_id" jdbcType="INTEGER"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="DATE"/>
+        <result property="pushFlag" column="push_flag" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="com.cgd.xxljobexecutor.model.WebSiteDetailModel">
+        insert into website_detail(p_id,url,create_time) values
+        (#{pId,jdbcType=INTEGER},#{url,jdbcType=VARCHAR},#{createTime,jdbcType=DATE})
+        ON DUPLICATE KEY UPDATE url = #{url,jdbcType=VARCHAR}
+    </insert>
+
+    <select id="selectAll" resultMap="ResultMap">
+        select * from  website_detail
+    </select>
+</mapper>
