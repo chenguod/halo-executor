@@ -18,5 +18,7 @@ public interface WebSiteDetailDao {
 
     List<WebSiteDetailModel> selectAll();
 
+    int insert(WebSiteDetailModel model);
+
     void truncate();
 }

@@ -53,17 +53,24 @@ public class EmployController {
     @RequestMapping(value = "/get",method = RequestMethod.POST)
     @ResponseBody
     public void ggg() throws Exception{
-        List<WebSiteModel> xmlList = webSiteService.selectAll();
-        List<WebSiteDetailModel> list = new ArrayList<>();
-        for (WebSiteModel model: xmlList){
+        List<WebSiteModel> webSiteModelList = webSiteService.selectAll();
+        StringBuffer sb = new StringBuffer();
+        for (WebSiteModel model: webSiteModelList){
             Integer pId = model.getId();
             List<XmlDTO> xmlDTOList = AnalyzingXML.AnalyzingXML(model.getUrl());
+            String name = model.getUrl();
+            final int[] num = {0};
             xmlDTOList.stream()
                     .forEach(xml->{
-                        list.add(new WebSiteDetailModel(null,pId,xml.getLoc(),xml.getLastmod(),null));
+                        try {
+                            webSiteDetailService.insert(new WebSiteDetailModel(null,pId,xml.getLoc(),xml.getLastmod(),null));
+                            num[0]++;
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
                     });
+            System.out.println(num[0]);
 
-            webSiteDetailService.insertBatch(list);
         }
     }
 }

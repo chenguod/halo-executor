@@ -14,6 +14,8 @@ public interface WebSiteDetailService {
 
     int insertBatch(List<WebSiteDetailModel> list);
 
+    int insert(WebSiteDetailModel model);
+
     void truncate();
 
     List<WebSiteDetailModel> selectAll();

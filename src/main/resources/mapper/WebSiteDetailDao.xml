@@ -18,6 +18,11 @@
         </foreach>
     </insert>
 
+    <insert id="insert" parameterType="com.cgd.xxljobexecutor.model.WebSiteDetailModel">
+        insert into website_detail(p_id,url,create_time) values
+        (#{pId,jdbcType=INTEGER},#{url,jdbcType=VARCHAR},#{createTime,jdbcType=DATE})
+    </insert>
+
     <select id="selectAll" resultMap="ResultMap">
         select * from  website_detail
     </select>
