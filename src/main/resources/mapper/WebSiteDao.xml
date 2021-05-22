@@ -13,7 +13,7 @@
 
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="com.cgd.xxljobexecutor.model.WebSiteModel">
         insert into website(url,token,import_time,num) values
-        (#{url,jdbcType=VARCHAR},#{token,jdbcType=VARCHAR},now(),#{num,jdbcType="INTEGER"})
+        (#{url,jdbcType=VARCHAR},#{token,jdbcType=VARCHAR},now(),#{num,jdbcType=INTEGER})
     </insert>
 
     <select id="selectAll" resultMap="ResultMap">
