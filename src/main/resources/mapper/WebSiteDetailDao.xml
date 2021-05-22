@@ -11,13 +11,18 @@
         <result property="pushFlag" column="push_flag" jdbcType="INTEGER"/>
     </resultMap>
 
-    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="com.cgd.xxljobexecutor.model.WebSiteDetailModel">
+    <insert id="insertBatch" parameterType="com.cgd.xxljobexecutor.model.WebSiteDetailModel">
         insert into website_detail(p_id,url,create_time) values
-        (#{pId,jdbcType=INTEGER},#{url,jdbcType=VARCHAR},#{createTime,jdbcType=DATE})
-        ON DUPLICATE KEY UPDATE url = #{url,jdbcType=VARCHAR}
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.pId,jdbcType=INTEGER},#{item.url,jdbcType=VARCHAR},#{item.createTime,jdbcType=DATE})
+        </foreach>
     </insert>
 
     <select id="selectAll" resultMap="ResultMap">
         select * from  website_detail
     </select>
+
+    <delete id="truncate">
+        truncate website_detail
+    </delete>
 </mapper>

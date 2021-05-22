@@ -14,7 +14,9 @@ import java.util.List;
 @Mapper
 public interface WebSiteDetailDao {
 
-    int insert(WebSiteDetailModel model);
+    int insertBatch(List<WebSiteDetailModel> list);
 
     List<WebSiteDetailModel> selectAll();
+
+    void truncate();
 }

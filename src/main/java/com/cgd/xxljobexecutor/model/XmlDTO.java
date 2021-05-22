@@ -18,8 +18,8 @@ import lombok.NoArgsConstructor;
 public class XmlDTO {
 
     @ApiModelProperty(value = "链接")
-    private String url;
+    private String loc;
 
     @ApiModelProperty(value = "时间")
-    private String time;
+    private String lastmod;
 }

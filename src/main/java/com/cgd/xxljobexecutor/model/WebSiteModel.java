@@ -25,5 +25,7 @@ public class WebSiteModel {
     private String token;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date importDate;
+    private String importTime;
+
+    private Integer num;
 }

@@ -12,7 +12,9 @@ import java.util.List;
  */
 public interface WebSiteDetailService {
 
-    int insert(WebSiteDetailModel model);
+    int insertBatch(List<WebSiteDetailModel> list);
+
+    void truncate();
 
     List<WebSiteDetailModel> selectAll();
 }

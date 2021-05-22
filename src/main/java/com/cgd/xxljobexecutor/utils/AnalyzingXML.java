@@ -21,13 +21,14 @@ public class AnalyzingXML {
 
     /**
      * 解析halo博客xml类型站点地图
-     * @param xml
+     * @param url
      * @return
      * @throws Exception
      */
-    public static List<XmlDTO> AnalyzingXML(String xml) throws Exception{
+    public static List<XmlDTO> AnalyzingXML(String url) throws Exception{
         Document doc = null;
-        List<XmlDTO> list = null;
+        String xml = HttpRequestUtil.sendGet(url,"");
+        List<XmlDTO> list = new ArrayList<>();
         try {
             // 将字符串转为XML
             doc = DocumentHelper.parseText(xml);
@@ -36,9 +37,9 @@ public class AnalyzingXML {
             Iterator<?> Report = Response.elementIterator("url");
             while (Report.hasNext()) {
                 Element tableItem = (Element) Report.next();
-                String url = tableItem.elementTextTrim("loc");
-                String time = tableItem.elementTextTrim("lastmod");
-                list.add(new XmlDTO(url,time));
+                String loc = tableItem.elementTextTrim("loc");
+                String lastmod = tableItem.elementTextTrim("lastmod").substring(0,10);
+                list.add(new XmlDTO(loc,lastmod));
             }
         } catch (DocumentException e) {
             e.printStackTrace();

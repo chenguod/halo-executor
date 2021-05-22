@@ -21,8 +21,13 @@ public class WebSiteDetailServiceImpl implements WebSiteDetailService {
     private WebSiteDetailDao webSiteDetailDao;
 
     @Override
-    public int insert(WebSiteDetailModel model) {
-        return webSiteDetailDao.insert(model);
+    public int insertBatch(List<WebSiteDetailModel> list) {
+        return webSiteDetailDao.insertBatch(list);
+    }
+
+    @Override
+    public void truncate() {
+        webSiteDetailDao.truncate();
     }
 
     @Override

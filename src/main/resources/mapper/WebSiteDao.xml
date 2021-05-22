@@ -8,11 +8,12 @@
         <result property="url" column="url" jdbcType="VARCHAR"/>
         <result property="token" column="token" jdbcType="VARCHAR"/>
         <result property="importTime" column="import_time" jdbcType="DATE"/>
+        <result property="num" column="num" jdbcType="INTEGER"/>
     </resultMap>
 
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="com.cgd.xxljobexecutor.model.WebSiteModel">
-        insert into website(url,token,import_time) values
-        (#{url,jdbcType=VARCHAR},#{token,jdbcType=VARCHAR},now())
+        insert into website(url,token,import_time,num) values
+        (#{url,jdbcType=VARCHAR},#{token,jdbcType=VARCHAR},now(),#{num,jdbcType="INTEGER"})
     </insert>
 
     <select id="selectAll" resultMap="ResultMap">

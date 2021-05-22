@@ -27,17 +27,6 @@ public class PushJob {
     public ReturnT<String> PushJobHandler(String param){
         List<WebSiteModel> xmlList = webSiteService.selectAll();
         WebSiteDetailModel webSiteDetailModel = null;
-/*        xmlList.stream().flatMap(webSite->{
-            try {
-                List<XmlDTO> list = AnalyzingXML.AnalyzingXML(webSite.getUrl());
-                webSiteDetailModel.setPId(webSite.getId());
-                return AnalyzingXML.AnalyzingXML(webSite.getUrl());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }).forEach(n->{
-
-        });*/
 /*        xmlList.stream().forEach(xml->{
             try {
                 List<XmlDTO> list = AnalyzingXML.AnalyzingXML(xml.getUrl());

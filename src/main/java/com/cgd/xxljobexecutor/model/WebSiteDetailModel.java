@@ -24,7 +24,8 @@ public class WebSiteDetailModel {
     private String url;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date CreateDate;
+    private String createTime;
 
     private Integer pushFlag;
+
 }
