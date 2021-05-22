@@ -5,6 +5,7 @@
 
     <resultMap type="com.cgd.xxljobexecutor.model.WebSiteModel" id="ResultMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="siteMap" column="site_map" jdbcType="VARCHAR"/>
         <result property="url" column="url" jdbcType="VARCHAR"/>
         <result property="token" column="token" jdbcType="VARCHAR"/>
         <result property="importTime" column="import_time" jdbcType="DATE"/>
@@ -12,11 +13,11 @@
     </resultMap>
 
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="com.cgd.xxljobexecutor.model.WebSiteModel">
-        insert into website(url,token,import_time,num) values
-        (#{url,jdbcType=VARCHAR},#{token,jdbcType=VARCHAR},now(),#{num,jdbcType=INTEGER})
+        insert into website(site_map,url,token,import_time,num) values
+        (#{siteMap,jdbcType=VARCHAR},#{url,jdbcType=VARCHAR},#{token,jdbcType=VARCHAR},now(),#{num,jdbcType=INTEGER})
     </insert>
 
     <select id="selectAll" resultMap="ResultMap">
-        select * from  website
+        select * from website
     </select>
 </mapper>

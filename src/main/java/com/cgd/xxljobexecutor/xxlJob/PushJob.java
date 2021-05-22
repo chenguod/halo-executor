@@ -1,11 +1,13 @@
 package com.cgd.xxljobexecutor.xxlJob;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cgd.xxljobexecutor.model.WebSiteDetailModel;
 import com.cgd.xxljobexecutor.model.WebSiteModel;
 import com.cgd.xxljobexecutor.model.XmlDTO;
 import com.cgd.xxljobexecutor.service.WebSiteDetailService;
 import com.cgd.xxljobexecutor.service.WebSiteService;
 import com.cgd.xxljobexecutor.utils.AnalyzingXML;
+import com.cgd.xxljobexecutor.utils.HttpRequestUtil;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.handler.annotation.XxlJob;
 import com.xxl.job.core.log.XxlJobLogger;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author 晓果冻
@@ -31,9 +34,27 @@ public class PushJob {
 
     @XxlJob("PushJobHandler")
     public ReturnT<String> PushJobHandler(String param){
-        List<WebSiteModel> xmlList = webSiteService.selectAll();
-        WebSiteDetailModel webSiteDetailModel = null;
-        return ReturnT.SUCCESS;
+        WebSiteDetailModel model = new WebSiteDetailModel();
+        List<WebSiteModel> webSiteModelList = webSiteService.selectAll();
+        StringBuffer sb = new StringBuffer();
+        webSiteModelList.stream().forEach(e->{
+            model.setPId(e.getId());
+            model.setPushFlag(0);
+            List<WebSiteDetailModel> webSiteDetailModelList = webSiteDetailService.selectAll(model);
+            List list = webSiteDetailModelList.stream().map(n->n.getUrl()).collect(Collectors.toList());
+            //拼装需要推送的url
+            String pushUrl = "http://data.zz.baidu.com/urls?site="+e.getUrl()+"&token="+e.getToken();
+            String response = HttpRequestUtil.baiduPost(pushUrl,list);
+            JSONObject json = JSONObject.parseObject(response);
+            if(json != null&& json.get("success") != null){
+                webSiteDetailService.updatePushFlag(list);
+                sb.append("<p style=\"color:green\">网站:"+e.getUrl()+"成功推送"+json.get("success")+"条数据\n</p");
+            }else{
+                sb.append("<p style=\"color:red\">网站:"+e.getUrl()+"推送失败!!!\n</p");
+            }
+        });
+        String message = new String(sb);
+        return new ReturnT<>(ReturnT.SUCCESS_CODE,message);
     }
 
     @XxlJob("UpdateUrl")
@@ -55,7 +76,7 @@ public class PushJob {
                         }
                     });
             XxlJobLogger.log("<p style=\"color:green\">>"+model.getUrl()+":此次共更新"+num[0]+"条文章"+"</p>");
-            sb.append("<p style=\"color:green\">>"+model.getUrl()+":此次共更新"+num[0]+"条文章"+"</p>");
+            sb.append("<p style=\"color:green\">"+model.getUrl()+":此次共更新"+num[0]+"条文章"+"</p>");
             sb.append("\n");
         }
         String message = new String(sb);

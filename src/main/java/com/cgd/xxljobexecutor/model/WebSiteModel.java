@@ -20,6 +20,8 @@ public class WebSiteModel {
 
     private Integer id;
 
+    private String siteMap;
+
     private String url;
 
     private String token;

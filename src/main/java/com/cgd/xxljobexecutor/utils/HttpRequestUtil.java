@@ -191,9 +191,59 @@ public class HttpRequestUtil {
         }
         return result;
     }
-  /* public static void main(String[] args) {
-	String s ="Http://localhost:8084/file/get_picture";
 
-	   log.info(HttpRequestUtil.sendPost(s,"fileIds=1"));
-	}*/
+    /**
+     *
+     * @param url 接口调用地址：http://data.zz.baidu.com/urls?site=https://xxx.xxx.com&token=xxxxx
+     * @param param 需要推送的网址
+     * @return
+     */
+    public static <T> String baiduPost(String url, List<T> param){
+        String result = "";
+        PrintWriter out = null;
+        BufferedReader in = null;
+        try {
+            //建立URL之间的连接
+            URLConnection conn = new URL(url).openConnection();
+            //设置通用的请求属性
+            conn.setRequestProperty("Host", "data.zz.baidu.com");
+            conn.setRequestProperty("User-Agent", "curl/7.12.1");
+            conn.setRequestProperty("Content-Length", "83");
+            conn.setRequestProperty("Content-Type", "text/plain");
+            //发送POST请求必须设置如下两行
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+            //获取conn对应的输出流
+            out = new PrintWriter(conn.getOutputStream());
+            //发送请求参数
+            StringBuffer sb = new StringBuffer();
+            param.stream().forEach(e->{
+                sb.append(e + "\n");
+            });
+            String urls = new String(sb);
+            out.print(urls);
+            //进行输出流的缓冲
+            out.flush();
+            //通过BufferedReader输入流来读取Url的响应
+            in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line;
+            while ((line = in.readLine()) != null) {
+                result += line;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+                if (in != null) {
+                    in.close();
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return result;
+    }
 }

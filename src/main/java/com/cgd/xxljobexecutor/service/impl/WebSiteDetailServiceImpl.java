@@ -36,7 +36,12 @@ public class WebSiteDetailServiceImpl implements WebSiteDetailService {
     }
 
     @Override
-    public List<WebSiteDetailModel> selectAll() {
-        return webSiteDetailDao.selectAll();
+    public List<WebSiteDetailModel> selectAll(WebSiteDetailModel model) {
+        return webSiteDetailDao.selectAll(model);
+    }
+
+    @Override
+    public void updatePushFlag(List list) {
+        webSiteDetailDao.updatePushFlag(list);
     }
 }

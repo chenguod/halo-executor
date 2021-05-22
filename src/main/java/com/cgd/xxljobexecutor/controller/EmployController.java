@@ -1,5 +1,7 @@
 package com.cgd.xxljobexecutor.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSONPathException;
 import com.cgd.xxljobexecutor.model.ResponseMessages;
 import com.cgd.xxljobexecutor.model.WebSiteDetailModel;
 import com.cgd.xxljobexecutor.model.WebSiteModel;
@@ -7,6 +9,8 @@ import com.cgd.xxljobexecutor.model.XmlDTO;
 import com.cgd.xxljobexecutor.service.WebSiteDetailService;
 import com.cgd.xxljobexecutor.service.WebSiteService;
 import com.cgd.xxljobexecutor.utils.AnalyzingXML;
+import com.cgd.xxljobexecutor.utils.HttpRequestUtil;
+import com.xxl.job.core.biz.model.ReturnT;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +19,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author 晓果冻
@@ -37,10 +44,10 @@ public class EmployController {
     @ApiOperation("新增需要收录的主站")
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
     @ResponseBody
-    public ResponseMessages<String> get(@RequestParam(value = "url") String url, @RequestParam(value = "token") String token){
+    public ResponseMessages<String> get(@RequestParam(value = "siteMap") String siteMap,@RequestParam(value = "url") String url, @RequestParam(value = "token") String token){
         try {
             int num = AnalyzingXML.AnalyzingXML(url).size();
-            WebSiteModel model = new WebSiteModel(null,url,token,null,num);
+            WebSiteModel model = new WebSiteModel(null,siteMap,url,token,null,num);
             webSiteService.insert(model);
             return ResponseMessages.SUCCESS("");
         } catch (Exception e) {
@@ -53,24 +60,24 @@ public class EmployController {
     @RequestMapping(value = "/get",method = RequestMethod.POST)
     @ResponseBody
     public void ggg() throws Exception{
+        WebSiteDetailModel model = new WebSiteDetailModel();
         List<WebSiteModel> webSiteModelList = webSiteService.selectAll();
         StringBuffer sb = new StringBuffer();
-        for (WebSiteModel model: webSiteModelList){
-            Integer pId = model.getId();
-            List<XmlDTO> xmlDTOList = AnalyzingXML.AnalyzingXML(model.getUrl());
-            String name = model.getUrl();
-            final int[] num = {0};
-            xmlDTOList.stream()
-                    .forEach(xml->{
-                        try {
-                            webSiteDetailService.insert(new WebSiteDetailModel(null,pId,xml.getLoc(),xml.getLastmod(),null));
-                            num[0]++;
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }
-                    });
-            System.out.println(num[0]);
-
-        }
+        webSiteModelList.stream().forEach(e->{
+            model.setPId(e.getId());
+            model.setPushFlag(0);
+            List<WebSiteDetailModel> webSiteDetailModelList = webSiteDetailService.selectAll(model);
+            List list = webSiteDetailModelList.stream().map(n->n.getUrl()).collect(Collectors.toList());
+            //拼装需要推送的url
+            String pushUrl = "http://data.zz.baidu.com/urls?site="+e.getUrl()+"&token="+e.getToken();
+            String response = HttpRequestUtil.baiduPost(pushUrl,list);
+            JSONObject json = JSONObject.parseObject(response);
+            if(json != null&& json.get("success") != null){
+                webSiteDetailService.updatePushFlag(list);
+                sb.append("<p style=\"color:green\">网站:"+e.getUrl()+"成功推送"+json.get("success")+"条数据\n</p");
+            }else{
+                sb.append("<p style=\"color:red\">网站:"+e.getUrl()+"推送失败!!!\n</p");
+            }
+        });
     }
 }

@@ -16,9 +16,11 @@ public interface WebSiteDetailDao {
 
     int insertBatch(List<WebSiteDetailModel> list);
 
-    List<WebSiteDetailModel> selectAll();
+    List<WebSiteDetailModel> selectAll(WebSiteDetailModel model);
 
     int insert(WebSiteDetailModel model);
 
     void truncate();
+
+    void updatePushFlag(List list);
 }

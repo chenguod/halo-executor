@@ -18,5 +18,7 @@ public interface WebSiteDetailService {
 
     void truncate();
 
-    List<WebSiteDetailModel> selectAll();
+    List<WebSiteDetailModel> selectAll(WebSiteDetailModel model);
+
+    void updatePushFlag(List list);
 }
