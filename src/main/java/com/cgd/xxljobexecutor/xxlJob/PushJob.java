@@ -48,9 +48,9 @@ public class PushJob {
             JSONObject json = JSONObject.parseObject(response);
             if(json != null&& json.get("success") != null){
                 webSiteDetailService.updatePushFlag(list);
-                sb.append("<p style=\"color:green\">网站:"+e.getUrl()+"成功推送"+json.get("success")+"条数据\n</p");
+                sb.append("<p style=\"color:green\">网站:"+e.getUrl()+"成功推送"+json.get("success")+"条数据</p>\n");
             }else{
-                sb.append("<p style=\"color:red\">网站:"+e.getUrl()+"推送失败!!!\n</p");
+                sb.append("<p style=\"color:red\">网站:"+e.getUrl()+"推送失败!!!</p>\n");
             }
         });
         String message = new String(sb);
