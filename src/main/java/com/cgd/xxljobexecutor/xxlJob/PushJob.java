@@ -59,6 +59,6 @@ public class PushJob {
             sb.append("\n");
         }
         String message = new String(sb);
-        return new ReturnT<>(message);
+        return new ReturnT<>(ReturnT.SUCCESS_CODE,message);
     }
 }
