@@ -24,18 +24,18 @@
     </insert>
 
     <select id="selectAll" parameterType="com.cgd.xxljobexecutor.model.WebSiteDetailModel" resultMap="ResultMap">
-        select * from  website_detail
-        <if test="pushFlag !='' and pushFlag != null">
-            where push_flag = #{pushFlag}
+        select * from  website_detail where 1= 1
+        <if test="pushFlag != null">
+            and push_flag = #{pushFlag}
         </if>
         <if test="createTime !='' and createTime != null">
-            where create_time = #{createTime}
+            and create_time = #{createTime}
         </if>
-        <if test="pId !='' and pId != null">
-            where p_id = #{pId}
+        <if test="pId != null">
+            and p_id = #{pId}
         </if>
         <if test="url !='' and url != null">
-            where url = #{url}
+            and url = #{url}
         </if>
     </select>
 

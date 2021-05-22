@@ -68,6 +68,10 @@ public class EmployController {
             model.setPushFlag(0);
             List<WebSiteDetailModel> webSiteDetailModelList = webSiteDetailService.selectAll(model);
             List list = webSiteDetailModelList.stream().map(n->n.getUrl()).collect(Collectors.toList());
+            if(list==null||list.size() == 0){
+                sb.append("<p style=\"color:yellow\">网站:"+e.getUrl()+"无需要推送的站点信息!!!</p>\n");
+                return;
+            }
             //拼装需要推送的url
             String pushUrl = "http://data.zz.baidu.com/urls?site="+e.getUrl()+"&token="+e.getToken();
             String response = HttpRequestUtil.baiduPost(pushUrl,list);
