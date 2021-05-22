@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/job-executor.iml" filepath="$PROJECT_DIR$/job-executor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xxl-job-executor.iml" filepath="$PROJECT_DIR$/xxl-job-executor.iml" />
     </modules>
   </component>
 </project>
