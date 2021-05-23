@@ -57,7 +57,7 @@ public class EmployController {
     }
 
     @ApiOperation("测试接口")
-    @RequestMapping(value = "/get",method = RequestMethod.POST)
+    @RequestMapping(value = "/test",method = RequestMethod.POST)
     @ResponseBody
     public void test() throws Exception{
         WebSiteDetailModel model = new WebSiteDetailModel();
