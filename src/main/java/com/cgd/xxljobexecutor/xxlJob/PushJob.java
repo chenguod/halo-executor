@@ -67,7 +67,7 @@ public class PushJob {
         StringBuffer sb = new StringBuffer();
         for (WebSiteModel model: webSiteModelList){
             Integer pId = model.getId();
-            List<XmlDTO> xmlDTOList = AnalyzingXML.AnalyzingXML(model.getUrl());
+            List<XmlDTO> xmlDTOList = AnalyzingXML.AnalyzingXML(model.getSiteMap());
             final int[] num = {0};
             xmlDTOList.stream()
                     .forEach(xml->{
