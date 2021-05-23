@@ -46,7 +46,7 @@ public class EmployController {
     @ResponseBody
     public ResponseMessages<String> get(@RequestParam(value = "siteMap") String siteMap,@RequestParam(value = "url") String url, @RequestParam(value = "token") String token){
         try {
-            int num = AnalyzingXML.AnalyzingXML(url).size();
+            int num = AnalyzingXML.AnalyzingXML(siteMap).size();
             WebSiteModel model = new WebSiteModel(null,siteMap,url,token,null,num);
             webSiteService.insert(model);
             return ResponseMessages.SUCCESS("");
