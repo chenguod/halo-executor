@@ -56,10 +56,10 @@ public class EmployController {
         }
     }
 
-    @ApiOperation("56+48456456456")
+    @ApiOperation("测试接口")
     @RequestMapping(value = "/get",method = RequestMethod.POST)
     @ResponseBody
-    public void ggg() throws Exception{
+    public void test() throws Exception{
         WebSiteDetailModel model = new WebSiteDetailModel();
         List<WebSiteModel> webSiteModelList = webSiteService.selectAll();
         StringBuffer sb = new StringBuffer();
