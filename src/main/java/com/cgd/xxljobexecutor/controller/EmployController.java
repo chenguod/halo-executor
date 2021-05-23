@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 @Controller
 @Slf4j
 @Api(tags = "网站收录")
-@CrossOrigin(origins = "*",maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class EmployController {
 
     @Autowired
@@ -42,12 +42,12 @@ public class EmployController {
     private WebSiteDetailService webSiteDetailService;
 
     @ApiOperation("新增需要收录的主站")
-    @RequestMapping(value = "/insert",method = RequestMethod.POST)
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseMessages<String> get(@RequestParam(value = "siteMap") String siteMap,@RequestParam(value = "url") String url, @RequestParam(value = "token") String token){
+    public ResponseMessages<String> get(@RequestParam(value = "siteMap") String siteMap, @RequestParam(value = "url") String url, @RequestParam(value = "token") String token) {
         try {
-            int num = AnalyzingXML.AnalyzingXML(url).size();
-            WebSiteModel model = new WebSiteModel(null,siteMap,url,token,null,num);
+            int num = AnalyzingXML.AnalyzingXML(siteMap).size();
+            WebSiteModel model = new WebSiteModel(null, siteMap, url, token, null, num);
             webSiteService.insert(model);
             return ResponseMessages.SUCCESS("");
         } catch (Exception e) {
@@ -57,30 +57,30 @@ public class EmployController {
     }
 
     @ApiOperation("测ff试sss接口hh")
-    @RequestMapping(value = "/test",method = RequestMethod.POST)
+    @RequestMapping(value = "/test", method = RequestMethod.POST)
     @ResponseBody
-    public void test() throws Exception{
+    public void test() throws Exception {
         WebSiteDetailModel model = new WebSiteDetailModel();
         List<WebSiteModel> webSiteModelList = webSiteService.selectAll();
         StringBuffer sb = new StringBuffer();
-        webSiteModelList.stream().forEach(e->{
+        webSiteModelList.stream().forEach(e -> {
             model.setPId(e.getId());
             model.setPushFlag(0);
             List<WebSiteDetailModel> webSiteDetailModelList = webSiteDetailService.selectAll(model);
-            List list = webSiteDetailModelList.stream().map(n->n.getUrl()).collect(Collectors.toList());
-            if(list==null||list.size() == 0){
-                sb.append("<p style=\"color:yellow\">网站:"+e.getUrl()+"无需要推送的站点信息!!!</p>\n");
+            List list = webSiteDetailModelList.stream().map(n -> n.getUrl()).collect(Collectors.toList());
+            if (list == null || list.size() == 0) {
+                sb.append("<p style=\"color:yellow\">网站:" + e.getUrl() + "无需要推送的站点信息!!!</p>\n");
                 return;
             }
             //拼装需要推送的url
-            String pushUrl = "http://data.zz.baidu.com/urls?site="+e.getUrl()+"&token="+e.getToken();
-            String response = HttpRequestUtil.baiduPost(pushUrl,list);
+            String pushUrl = "http://data.zz.baidu.com/urls?site=" + e.getUrl() + "&token=" + e.getToken();
+            String response = HttpRequestUtil.baiduPost(pushUrl, list);
             JSONObject json = JSONObject.parseObject(response);
-            if(json != null&& json.get("success") != null){
+            if (json != null && json.get("success") != null) {
                 webSiteDetailService.updatePushFlag(list);
-                sb.append("<p style=\"color:green\">网站:"+e.getUrl()+"成功推送"+json.get("success")+"条数据\n</p>\n");
-            }else{
-                sb.append("<p style=\"color:red\">网站:"+e.getUrl()+"推送失败!!!</p>\n");
+                sb.append("<p style=\"color:green\">网站:" + e.getUrl() + "成功推送" + json.get("success") + "条数据\n</p>\n");
+            } else {
+                sb.append("<p style=\"color:red\">网站:" + e.getUrl() + "推送失败!!!</p>\n");
             }
         });
         String message = new String(sb);
