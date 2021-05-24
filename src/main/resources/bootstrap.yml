@@ -1,5 +1,8 @@
 spring:
   cloud:
+    sentinel:
+      transport:
+        dasshboard: 49.233.0.67:8858
     nacos:
       discovery:
         server-addr: 49.233.0.67:8848
