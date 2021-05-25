@@ -15,6 +15,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +35,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Api(tags = "网站收录")
 @CrossOrigin(origins = "*", maxAge = 3600)
+@RefreshScope
 public class EmployController {
 
     @Autowired
@@ -40,6 +43,9 @@ public class EmployController {
 
     @Autowired
     private WebSiteDetailService webSiteDetailService;
+
+    @Value("${name}")
+    private String name;
 
     @ApiOperation("新增需要收录的主站")
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
@@ -59,31 +65,7 @@ public class EmployController {
     @ApiOperation("测ff试sss接口hh")
     @RequestMapping(value = "/test", method = RequestMethod.POST)
     @ResponseBody
-    public void test() throws Exception {
-        WebSiteDetailModel model = new WebSiteDetailModel();
-        List<WebSiteModel> webSiteModelList = webSiteService.selectAll();
-        StringBuffer sb = new StringBuffer();
-        webSiteModelList.stream().forEach(e -> {
-            model.setPId(e.getId());
-            model.setPushFlag(0);
-            List<WebSiteDetailModel> webSiteDetailModelList = webSiteDetailService.selectAll(model);
-            List list = webSiteDetailModelList.stream().map(n -> n.getUrl()).collect(Collectors.toList());
-            if (list == null || list.size() == 0) {
-                sb.append("<p style=\"color:yellow\">网站:" + e.getUrl() + "无需要推送的站点信息!!!</p>\n");
-                return;
-            }
-            //拼装需要推送的url
-            String pushUrl = "http://data.zz.baidu.com/urls?site=" + e.getUrl() + "&token=" + e.getToken();
-            String response = HttpRequestUtil.baiduPost(pushUrl, list);
-            JSONObject json = JSONObject.parseObject(response);
-            if (json != null && json.get("success") != null) {
-                webSiteDetailService.updatePushFlag(list);
-                sb.append("<p style=\"color:green\">网站:" + e.getUrl() + "成功推送" + json.get("success") + "条数据\n</p>\n");
-            } else {
-                sb.append("<p style=\"color:red\">网站:" + e.getUrl() + "推送失败!!!</p>\n");
-            }
-        });
-        String message = new String(sb);
-        System.out.println(message);
+    public String test() throws Exception {
+       return name;
     }
 }
