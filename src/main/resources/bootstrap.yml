@@ -2,13 +2,13 @@ spring:
   cloud:
     sentinel:
       transport:
-        dasshboard: https://sentinel.chenmx.net
+        dasshboard: http://sentinel.sentinel.59.110.230.237.nip.io:32594/
     nacos:
       discovery:
-        server-addr: https://nacos.chenmx.net
+        server-addr: http://nacos.nacos.59.110.230.237.nip.io:32757/
         namespace: dev
       config:
-        server-addr: https://nacos.chenmx.net
+        server-addr: http://nacos.nacos.59.110.230.237.nip.io:32757/
         #文件后缀
         file-extension: yaml
         #指定分组
