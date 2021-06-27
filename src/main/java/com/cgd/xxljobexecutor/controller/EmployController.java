@@ -1,11 +1,8 @@
 package com.cgd.xxljobexecutor.controller;
 
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.JSONPathException;
-import com.cgd.xxljobexecutor.model.ResponseMessages;
-import com.cgd.xxljobexecutor.model.WebSiteDetailModel;
-import com.cgd.xxljobexecutor.model.WebSiteModel;
-import com.cgd.xxljobexecutor.model.XmlDTO;
+import com.alibaba.fastjson.*;
+import com.cgd.xxljobexecutor.model.*;
+import com.cgd.xxljobexecutor.service.SiteListService;
 import com.cgd.xxljobexecutor.service.WebSiteDetailService;
 import com.cgd.xxljobexecutor.service.WebSiteService;
 import com.cgd.xxljobexecutor.utils.AnalyzingXML;
@@ -44,8 +41,8 @@ public class EmployController {
     @Autowired
     private WebSiteDetailService webSiteDetailService;
 
-    @Value("${name}")
-    private String name;
+    @Autowired
+    private SiteListService siteListService;
 
     @ApiOperation("新增需要收录的主站")
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
@@ -62,10 +59,13 @@ public class EmployController {
         }
     }
 
-    @ApiOperation("测ff试sss接口zzhh")
+    @ApiOperation("测试获取百度站点")
     @RequestMapping(value = "/test", method = RequestMethod.POST)
     @ResponseBody
-    public String test() throws Exception {
-       return name;
+    public void test(@RequestParam(value = "param") String param) {
+        String url = "https://openapi.baidu.com/rest/2.0/tongji/config/getSiteList";
+        String resonse = HttpRequestUtil.sendGet(url, param);
+        JSONObject message = JSONObject.parseObject(resonse);
+        siteListService.saveSiteInfo(message);
     }
 }
