@@ -69,6 +69,49 @@ public class HttpRequestUtil {
         return result;
     }
 
+    public static String sendGet(String url) {
+        String result = "";
+        BufferedReader in = null;
+        try {
+            String urlNameString = url;
+            URL realUrl = new URL(urlNameString);
+            // 打开和URL之间的连接
+            URLConnection connection = realUrl.openConnection();
+            // 设置通用的请求属性
+            connection.setRequestProperty("Content-type", "application/json; charset=UTF-8");
+            // 建立实际的连接
+            connection.connect();
+            // 获取所有响应头字段
+            Map<String, List<String>> map = connection.getHeaderFields();
+            // 遍历所有的响应头字段
+            for (String key : map.keySet()) {
+                log.info(key + "--->" + map.get(key));
+            }
+            // 定义 BufferedReader输入流来读取URL的响应
+            in = new BufferedReader(new InputStreamReader(
+                    connection.getInputStream()));
+            String line;
+            while ((line = in.readLine()) != null) {
+                result += line;
+            }
+            result = new String(result.getBytes(), "UTF-8");
+        } catch (Exception e) {
+            log.info("发送GET请求出现异常！" + e);
+            e.printStackTrace();
+        } finally {
+            // 使用finally块来关闭输入流
+            try {
+                if (in != null) {
+                    in.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+        log.info("返回的结果：", result);
+        return result;
+    }
+
     /**
      * 向指定URL发送GET方法的请求
      *
