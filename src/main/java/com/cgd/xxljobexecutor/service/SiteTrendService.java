@@ -7,5 +7,5 @@ package com.cgd.xxljobexecutor.service;
  */
 public interface SiteTrendService {
 
-    void insert(String response);
+    void saveInfo(String response,String siteId);
 }
