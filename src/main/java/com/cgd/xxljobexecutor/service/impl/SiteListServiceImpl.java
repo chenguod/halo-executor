@@ -30,8 +30,9 @@ public class SiteListServiceImpl implements SiteListService {
     }
 
     @Override
-    public Integer saveSiteInfo(JSONObject message) {
+    public Integer saveSiteInfo(String response) {
         int num = 0;
+        JSONObject message = JSONObject.parseObject(response);
         try {
             List<SiteListModel> list = new ArrayList<>();
             JSONArray jsonArray = (JSONArray) message.get("list");

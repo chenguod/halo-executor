@@ -1,6 +1,5 @@
 package com.cgd.xxljobexecutor.service;
 
-import com.alibaba.fastjson.JSONObject;
 import com.cgd.xxljobexecutor.model.SiteListModel;
 
 /**
@@ -12,5 +11,5 @@ public interface SiteListService {
 
     SiteListModel getSiteInfo();
 
-    Integer saveSiteInfo(JSONObject message);
+    Integer saveSiteInfo(String response);
 }

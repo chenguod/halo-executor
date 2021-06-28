@@ -1,7 +1,6 @@
 package com.cgd.xxljobexecutor.service;
 
 import com.cgd.xxljobexecutor.model.WebSiteDetailModel;
-import com.cgd.xxljobexecutor.model.XmlDTO;
 
 import java.util.List;
 

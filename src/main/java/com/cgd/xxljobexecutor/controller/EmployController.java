@@ -67,8 +67,8 @@ public class EmployController {
         String accessToken = "121.a56ea6e11fce00b3aa4c68b956d59504.YlPjhg44X-6WKT1J0s1e10rcpPuoE57OlTadyKY.q4_OvQ";//json.getString("access_token");
         String siteId = "16873420";//json.getString("site_id");
         String url = "https://openapi.baidu.com/rest/2.0/tongji/report/getData?access_token="+accessToken+"&site_id="+siteId+"&start_date="+date+"&end_date="+date+"&metrics=pv_count%2Cpv_ratio%2Cvisit_count%2Cvisitor_count%2Cnew_visitor_count%2Cnew_visitor_ratio%2Cip_count%2Cbounce_ratio%2Cavg_visit_time%2Cavg_visit_pages&method=trend%2Ftime%2Fa&gran=day&area=china";
-        String resonse = HttpRequestUtil.sendGet(url);
-        JSONArray jsonArray = JSONObject.parseObject(resonse).getJSONObject("result").getJSONArray("sum").getJSONArray(0);
+        String response = HttpRequestUtil.sendGet(url);
+        JSONArray jsonArray = JSONObject.parseObject(response).getJSONObject("result").getJSONArray("sum").getJSONArray(0);
         System.out.println(jsonArray);
     }
 }

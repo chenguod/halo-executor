@@ -10,4 +10,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SiteTrendServiceImpl implements SiteTrendService {
+    @Override
+    public void insert(String response) {
+
+    }
 }

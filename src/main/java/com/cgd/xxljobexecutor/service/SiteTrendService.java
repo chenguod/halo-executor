@@ -6,4 +6,6 @@ package com.cgd.xxljobexecutor.service;
  * @date 2021/6/28 19:24
  */
 public interface SiteTrendService {
+
+    void insert(String response);
 }
