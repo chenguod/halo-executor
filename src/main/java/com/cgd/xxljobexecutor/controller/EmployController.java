@@ -70,7 +70,7 @@ public class EmployController {
         String siteId = "16873420";//json.getString("site_id");
         String url = "https://openapi.baidu.com/rest/2.0/tongji/report/getData?access_token="+accessToken+"&site_id="+siteId+"method=overview/getTimeTrendRpt&start_date="+startDate+"&end_date="+endDate+"&metrics=pv_count%2Cvisitor_count%2Cip_count%2Cbounce_ratio%2Cavg_visit_time%2Ctrans_count&method=overview%2FgetTimeTrendRpt";
         String resonse = HttpRequestUtil.sendGet(url);
-        JSONObject message = JSONObject.parseObject(resonse);
-        System.out.println(message);
+        JSONArray jsonArray = JSONObject.parseObject(resonse).getJSONObject("result").getJSONArray("items").getJSONArray(1);
+        System.out.println(jsonArray);
     }
 }
