@@ -1,5 +1,6 @@
 package com.cgd.xxljobexecutor.dao;
 
+import com.cgd.xxljobexecutor.model.SiteTrendModel;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -9,4 +10,6 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface SiteTrendDao {
+
+    void insert(SiteTrendModel model);
 }

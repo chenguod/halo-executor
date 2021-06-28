@@ -2,7 +2,9 @@ package com.cgd.xxljobexecutor.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
@@ -12,6 +14,8 @@ import java.math.BigDecimal;
  * @date 2021/6/28 13:10
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class SiteTrendModel {
 
     @ApiModelProperty(notes = "应用ID")

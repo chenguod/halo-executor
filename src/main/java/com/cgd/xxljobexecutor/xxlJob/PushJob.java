@@ -33,7 +33,7 @@ public class PushJob {
     private WebSiteDetailService webSiteDetailService;
 
     @XxlJob("PushJobHandler")
-    public ReturnT<String> PushJobHandler(String param){
+    public ReturnT<String> pushJobHandler(String param){
         WebSiteDetailModel model = new WebSiteDetailModel();
         List<WebSiteModel> webSiteModelList = webSiteService.selectAll();
         StringBuffer sb = new StringBuffer();
@@ -62,7 +62,7 @@ public class PushJob {
     }
 
     @XxlJob("UpdateUrl")
-    public ReturnT<String> UpdateUrl(String param) throws Exception{
+    public ReturnT<String> updateUrl(String param) throws Exception{
         List<WebSiteModel> webSiteModelList = webSiteService.selectAll();
         StringBuffer sb = new StringBuffer();
         for (WebSiteModel model: webSiteModelList){
