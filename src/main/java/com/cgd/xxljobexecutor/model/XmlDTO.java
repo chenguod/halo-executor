@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel(value = "XmlDTO",description = "站点地图详情")
+@ApiModel(value = "XmlDTO", description = "站点地图详情")
 public class XmlDTO {
 
     @ApiModelProperty(value = "链接")

@@ -236,12 +236,11 @@ public class HttpRequestUtil {
     }
 
     /**
-     *
-     * @param url 接口调用地址：http://data.zz.baidu.com/urls?site=https://xxx.xxx.com&token=xxxxx
+     * @param url   接口调用地址：http://data.zz.baidu.com/urls?site=https://xxx.xxx.com&token=xxxxx
      * @param param 需要推送的网址
      * @return
      */
-    public static <T> String baiduPost(String url, List<T> param){
+    public static <T> String baiduPost(String url, List<T> param) {
         String result = "";
         PrintWriter out = null;
         BufferedReader in = null;
@@ -260,7 +259,7 @@ public class HttpRequestUtil {
             out = new PrintWriter(conn.getOutputStream());
             //发送请求参数
             StringBuffer sb = new StringBuffer();
-            param.stream().forEach(e->{
+            param.stream().forEach(e -> {
                 sb.append(e + "\n");
             });
             String urls = new String(sb);

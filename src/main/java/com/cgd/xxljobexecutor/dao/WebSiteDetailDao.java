@@ -1,7 +1,6 @@
 package com.cgd.xxljobexecutor.dao;
 
 import com.cgd.xxljobexecutor.model.WebSiteDetailModel;
-import com.cgd.xxljobexecutor.model.XmlDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

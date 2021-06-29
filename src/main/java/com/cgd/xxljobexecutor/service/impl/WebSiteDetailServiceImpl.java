@@ -2,7 +2,6 @@ package com.cgd.xxljobexecutor.service.impl;
 
 import com.cgd.xxljobexecutor.dao.WebSiteDetailDao;
 import com.cgd.xxljobexecutor.model.WebSiteDetailModel;
-import com.cgd.xxljobexecutor.model.XmlDTO;
 import com.cgd.xxljobexecutor.service.WebSiteDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

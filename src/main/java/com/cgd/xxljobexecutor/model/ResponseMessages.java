@@ -30,11 +30,11 @@ public class ResponseMessages<T> {
     @ApiModelProperty(value = "具体数据")
     private T data;
 
-    public static <T> ResponseMessages SUCCESS(T data){
-        return new ResponseMessages(SUCCESS,"ok",data);
+    public static <T> ResponseMessages SUCCESS(T data) {
+        return new ResponseMessages(SUCCESS, "ok", data);
     }
 
-    public static <T> ResponseMessages FAIL(T data){
-        return new ResponseMessages(ERROR,"fail",data);
+    public static <T> ResponseMessages FAIL(T data) {
+        return new ResponseMessages(ERROR, "fail", data);
     }
 }

@@ -18,6 +18,6 @@
     </insert>
 
     <select id="getSiteIds" resultType="java.lang.String">
-        select site_id from site_list
+        select site_id from site_list where status = 0
     </select>
 </mapper>

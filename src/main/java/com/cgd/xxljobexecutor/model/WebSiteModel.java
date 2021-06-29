@@ -1,12 +1,9 @@
 package com.cgd.xxljobexecutor.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Date;
 
 /**
  * @author 晓果冻

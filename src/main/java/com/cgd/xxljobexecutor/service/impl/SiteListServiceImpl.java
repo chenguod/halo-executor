@@ -36,15 +36,14 @@ public class SiteListServiceImpl implements SiteListService {
         try {
             List<SiteListModel> list = new ArrayList<>();
             JSONArray jsonArray = (JSONArray) message.get("list");
-            for(int i = 0;i < jsonArray.size();i++){
+            for (int i = 0; i < jsonArray.size(); i++) {
                 SiteListModel model = jsonArray.getJSONObject(i).toJavaObject(SiteListModel.class);
                 list.add(model);
             }
             num = siteListDao.saveSiteInfo(list);
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
-        }
-        finally {
+        } finally {
             return num;
         }
     }

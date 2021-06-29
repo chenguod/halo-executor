@@ -1,16 +1,12 @@
 package com.cgd.xxljobexecutor.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.cgd.xxljobexecutor.dao.SiteTrendDao;
-import com.cgd.xxljobexecutor.model.SiteListModel;
 import com.cgd.xxljobexecutor.model.SiteTrendModel;
 import com.cgd.xxljobexecutor.service.SiteTrendService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @author 晓果冻
