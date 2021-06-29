@@ -34,6 +34,7 @@ public class BaiduStatistics {
 
     @XxlJob("GetSiteListHandler")
     public ReturnT<String> getSiteList(String param) {
+        param = "access_token=" + accessToken;
         String url = "https://openapi.baidu.com/rest/2.0/tongji/config/getSiteList";
         String response = HttpRequestUtil.sendGet(url, param);
         int num = siteListService.saveSiteInfo(response);
