@@ -1,6 +1,6 @@
 package com.cgd.xxljobexecutor.service;
 
-import com.cgd.xxljobexecutor.model.SiteListModel;
+import java.util.List;
 
 /**
  * @author 晓果冻
@@ -9,7 +9,7 @@ import com.cgd.xxljobexecutor.model.SiteListModel;
  */
 public interface SiteListService {
 
-    SiteListModel getSiteInfo();
+    List<String> getSiteIds();
 
     Integer saveSiteInfo(String response);
 }

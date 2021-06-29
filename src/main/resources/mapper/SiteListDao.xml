@@ -14,12 +14,10 @@
         insert into site_list values
         <foreach collection="list" item="item" index="index" separator=",">
             (#{item.siteId,jdbcType=VARCHAR},#{item.domain,jdbcType=VARCHAR},#{item.status,jdbcType=INTEGER},#{item.createTime,jdbcType=DATE})
-            ON DUPLICATE KEY UPDATE
-            site_id = values(#{item.siteId,jdbcType=VARCHAR)
         </foreach>
     </insert>
 
-    <select id="selectAll" resultMap="ResultMap">
-        select * from site_list
+    <select id="getSiteIds" resultType="java.lang.String">
+        select site_id from site_list
     </select>
 </mapper>

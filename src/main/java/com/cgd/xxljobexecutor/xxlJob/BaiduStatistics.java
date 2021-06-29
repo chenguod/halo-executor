@@ -1,14 +1,11 @@
 package com.cgd.xxljobexecutor.xxlJob;
 
-import com.alibaba.fastjson.JSONObject;
 import com.cgd.xxljobexecutor.service.SiteListService;
 import com.cgd.xxljobexecutor.utils.HttpRequestUtil;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.handler.annotation.XxlJob;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.Objects;
 
 /**
  * @author 晓果冻
@@ -32,7 +29,7 @@ public class BaiduStatistics {
 
     @XxlJob("GetSiteTrendHandler")
     public ReturnT<String> getSiteTrend(String param){
-        
+
         return null;
     }
 }

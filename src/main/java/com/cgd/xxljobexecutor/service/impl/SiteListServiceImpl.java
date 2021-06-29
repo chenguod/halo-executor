@@ -25,8 +25,8 @@ public class SiteListServiceImpl implements SiteListService {
     private SiteListDao siteListDao;
 
     @Override
-    public SiteListModel getSiteInfo() {
-        return null;
+    public List<String> getSiteIds() {
+        return siteListDao.getSiteIds();
     }
 
     @Override

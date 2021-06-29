@@ -14,4 +14,6 @@ import java.util.List;
 public interface SiteListDao {
 
     int saveSiteInfo(List<SiteListModel> list);
+
+    List<String> getSiteIds();
 }
