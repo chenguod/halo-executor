@@ -7,6 +7,7 @@ import com.cgd.xxljobexecutor.utils.DateUtils;
 import com.cgd.xxljobexecutor.utils.HttpRequestUtil;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.handler.annotation.XxlJob;
+import com.xxl.job.core.log.XxlJobLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -57,6 +58,7 @@ public class BaiduStatistics {
             });
             return ReturnT.SUCCESS;
         } catch (Exception e) {
+            XxlJobLogger.log(e.getMessage());
             return ReturnT.FAIL;
         }
     }
@@ -73,6 +75,7 @@ public class BaiduStatistics {
             });
             return ReturnT.SUCCESS;
         } catch (Exception e) {
+            XxlJobLogger.log(e.getMessage());
             return ReturnT.FAIL;
         }
     }
