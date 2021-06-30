@@ -28,7 +28,6 @@ public class SiteTrendOriginServiceImpl implements SiteTrendOriginService {
     public void saveInfo(String response, String siteId, String date) {
         List<SiteTrendOriginModel> list = new ArrayList<>();
         JSONArray jsonArray = JSONObject.parseObject(response).getJSONObject("result").getJSONObject("sourceSite").getJSONArray("items");
-        System.out.println(jsonArray.getString(0).substring(1, jsonArray.getString(0).length() - 1));
         for (int i = 0; i < jsonArray.size(); i++) {
             String[] arrays = jsonArray.getString(i).substring(1, jsonArray.getString(i).length() - 1).replace("\"","").split(",");
             list.add(new SiteTrendOriginModel(siteId, arrays[0],Integer.valueOf(arrays[1]), new BigDecimal(arrays[2]), date));
