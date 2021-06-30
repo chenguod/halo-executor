@@ -2,6 +2,7 @@ package com.cgd.xxljobexecutor.xxlJob;
 
 import com.cgd.xxljobexecutor.service.SiteListService;
 import com.cgd.xxljobexecutor.service.SiteTrendAreaService;
+import com.cgd.xxljobexecutor.service.SiteTrendOriginService;
 import com.cgd.xxljobexecutor.service.impl.SiteTrendServiceImpl;
 import com.cgd.xxljobexecutor.utils.DateUtils;
 import com.cgd.xxljobexecutor.utils.HttpRequestUtil;
@@ -33,6 +34,9 @@ public class BaiduStatistics {
 
     @Autowired
     private SiteTrendAreaService siteTrendAreaService;
+
+    @Autowired
+    private SiteTrendOriginService siteTrendOriginService;
 
     @Value("${accessToken}")
     private String accessToken;
@@ -72,6 +76,23 @@ public class BaiduStatistics {
                 String url = "https://openapi.baidu.com/rest/2.0/tongji/report/getData?access_token=" + accessToken + "&site_id=" + e + "&start_date=" + date + "&end_date=" + date + "&metrics=pv_count&method=overview%2FgetDistrictRpt";
                 String response = HttpRequestUtil.sendGet(url);
                 siteTrendAreaService.saveInfo(response, e, date);
+            });
+            return ReturnT.SUCCESS;
+        } catch (Exception e) {
+            XxlJobLogger.log(e.getMessage());
+            return ReturnT.FAIL;
+        }
+    }
+
+    @XxlJob("GetCommonTrackRptHandler")
+    public ReturnT<String> getCommonTrackRpt(String param) {
+        String date = DateUtils.nowDate(-1, "yyyyMMdd");
+        List<String> siteIdList = siteListService.getSiteIds();
+        try {
+            siteIdList.stream().forEach(e -> {
+                String url = "https://openapi.baidu.com/rest/2.0/tongji/report/getData?access_token=" + accessToken + "&site_id=" + e + "&start_date=" + date + "&end_date=" + date + "&metrics=pv_count&method=overview%2FgetCommonTrackRpt";
+                String response = HttpRequestUtil.sendGet(url);
+                siteTrendOriginService.saveInfo(response, e, date);
             });
             return ReturnT.SUCCESS;
         } catch (Exception e) {

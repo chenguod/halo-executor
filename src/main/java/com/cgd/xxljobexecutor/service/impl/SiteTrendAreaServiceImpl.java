@@ -21,6 +21,7 @@ public class SiteTrendAreaServiceImpl implements SiteTrendAreaService {
 
     @Autowired
     private SiteTrendAreaDao siteTrendAreaDao;
+
     @Override
     public void saveInfo(String response, String siteId, String date) {
         List<SiteTrendAreaModel> list = new ArrayList<>();

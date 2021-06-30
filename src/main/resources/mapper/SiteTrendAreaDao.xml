@@ -5,6 +5,7 @@
 
     <resultMap type="com.cgd.xxljobexecutor.model.SiteTrendAreaModel" id="ResultMap">
         <result property="siteId" column="site_id" jdbcType="VARCHAR"/>
+        <result property="area" column="area" jdbcType="VARCHAR"/>
         <result property="pvCount" column="pv_count" jdbcType="INTEGER"/>
         <result property="ratio" column="ratio" jdbcType="NUMERIC"/>
         <result property="date" column="date" jdbcType="VARCHAR"/>

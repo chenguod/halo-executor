@@ -43,6 +43,9 @@ public class EmployController {
     @Autowired
     private SiteTrendService siteTrendService;
 
+    @Autowired
+    private SiteTrendOriginService siteTrendOriginService;
+
     @Value("${accessToken}")
     private String accessToken;
 
@@ -97,6 +100,19 @@ public class EmployController {
             String url = "https://openapi.baidu.com/rest/2.0/tongji/report/getData?access_token=" + accessToken + "&site_id=" + e + "&start_date=" + date + "&end_date=" + date + "&metrics=pv_count&method=overview%2FgetDistrictRpt";
             String response = HttpRequestUtil.sendGet(url);
             siteTrendAreaService.saveInfo(response, e, date);
+        });
+    }
+
+    @ApiOperation("测试获取百度统计站点趋势数据-来源网站")
+    @RequestMapping(value = "/test/trackRpt", method = RequestMethod.POST)
+    @ResponseBody
+    public void getCommonTrackRpt(@RequestParam(value = "param") String param) throws ParseException {
+        String date = DateUtils.nowDate(-1, "yyyyMMdd");
+        List<String> siteIdList = siteListService.getSiteIds();
+        siteIdList.stream().forEach(e -> {
+            String url = "https://openapi.baidu.com/rest/2.0/tongji/report/getData?access_token=" + accessToken + "&site_id=" + e + "&start_date=" + date + "&end_date=" + date + "&metrics=pv_count&method=overview%2FgetCommonTrackRpt";
+            String response = HttpRequestUtil.sendGet(url);
+            siteTrendOriginService.saveInfo(response, e, date);
         });
     }
 }
