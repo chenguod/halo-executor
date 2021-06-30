@@ -68,7 +68,7 @@ public class BaiduStatistics {
         try {
             siteIdList.stream().forEach(e -> {
                 String url = "https://openapi.baidu.com/rest/2.0/tongji/report/getData?access_token=" + accessToken + "&site_id=" + e + "&start_date=" + date + "&end_date=" + date + "&metrics=pv_count&method=overview%2FgetDistrictRpt";
-                String response = HttpRequestUtil.sendGet(url).replace("--", "0");
+                String response = HttpRequestUtil.sendGet(url);
                 siteTrendAreaService.saveInfo(response, e, date);
             });
             return ReturnT.SUCCESS;
