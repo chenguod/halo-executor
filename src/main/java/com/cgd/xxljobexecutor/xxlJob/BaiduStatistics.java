@@ -75,7 +75,6 @@ public class BaiduStatistics {
             });
             return ReturnT.SUCCESS;
         } catch (Exception e) {
-            e.printStackTrace();
             XxlJobLogger.log(e.getMessage());
             return ReturnT.FAIL;
         }
