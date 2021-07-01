@@ -16,16 +16,15 @@
         <result property="bounceRatio" column="bounce_ratio" jdbcType="NUMERIC"/>
         <result property="avgVisitTime" column="avg_visit_time" jdbcType="INTEGER"/>
         <result property="avgVisitPages" column="avg_visit_pages" jdbcType="INTEGER"/>
-        <result property="date" column="date" jdbcType="VARCHAR"/>
     </resultMap>
 
     <insert id="insert"  parameterType="com.cgd.xxljobexecutor.model.SiteTrendEngineModel">
         replace into site_trend_engine (site_id,search_engine,pv_count,pv_ratio,visit_count,visitor_count,new_visitor_count,
-        new_visitor_ratio,ip_count,bounce_ratio,avg_visit_time,avg_visit_pages,date)values
+        new_visitor_ratio,ip_count,bounce_ratio,avg_visit_time,avg_visit_pages)values
         <foreach collection="list" item="item" index="index" separator=",">
         (#{item.siteId,jdbcType=VARCHAR},#{item.searchEngine,jdbcType=VARCHAR},#{item.pvCount,jdbcType=INTEGER},#{item.pvRatio,jdbcType=NUMERIC},#{item.visitCount,jdbcType=INTEGER},#{item.visitorCount,jdbcType=INTEGER},
         #{item.newVisitorCount,jdbcType=INTEGER},#{item.newVisitorRatio,jdbcType=NUMERIC},#{item.ipCount,jdbcType=INTEGER},#{item.bounceRatio,jdbcType=NUMERIC},#{item.avgVisitTime,jdbcType=INTEGER},
-        #{item.avgVisitPages,jdbcType=INTEGER},#{item.date,jdbcType=VARCHAR})
+        #{item.avgVisitPages,jdbcType=INTEGER})
         </foreach>
     </insert>
 </mapper>

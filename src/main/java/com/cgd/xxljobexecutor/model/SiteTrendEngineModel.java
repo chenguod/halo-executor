@@ -52,7 +52,4 @@ public class SiteTrendEngineModel {
 
     @ApiModelProperty(notes = "平均访问时长，秒")
     private Integer avgVisitPages;
-
-    @ApiModelProperty(notes = "日期, 以北京时间表示")
-    private String date;
 }
