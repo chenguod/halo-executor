@@ -20,7 +20,7 @@
     </resultMap>
 
     <insert id="insert"  parameterType="com.cgd.xxljobexecutor.model.SiteTrendEngineModel">
-        insert into site_trend_engine (site_id,search_engine,pv_count,pv_ratio,visit_count,visitor_count,new_visitor_count,
+        replace into site_trend_engine (site_id,search_engine,pv_count,pv_ratio,visit_count,visitor_count,new_visitor_count,
         new_visitor_ratio,ip_count,bounce_ratio,avg_visit_time,avg_visit_pages,date)values
         <foreach collection="list" item="item" index="index" separator=",">
         (#{item.siteId,jdbcType=VARCHAR},#{item.searchEngine,jdbcType=VARCHAR},#{item.pvCount,jdbcType=INTEGER},#{item.pvRatio,jdbcType=NUMERIC},#{item.visitCount,jdbcType=INTEGER},#{item.visitorCount,jdbcType=INTEGER},

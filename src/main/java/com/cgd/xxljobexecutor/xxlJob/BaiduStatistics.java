@@ -111,9 +111,11 @@ public class BaiduStatistics {
         List<String> siteIdList = siteListService.getSiteIds();
         try {
             siteIdList.stream().forEach(e -> {
-                String url = "https://openapi.baidu.com/rest/2.0/tongji/report/getData?access_token=" + accessToken + "&site_id=" + e + "&start_date=" + "'20210429'" + "&end_date=" + "'20210629'" + "&metrics=pv_count%2Cpv_ratio%2Cvisit_count%2Cvisitor_count%2Cnew_visitor_count%2Cnew_visitor_ratio%2Cip_count%2Cbounce_ratio%2Cavg_visit_time%2Cavg_visit_pages&method=source%2Fengine%2Fa&area=";
-                String response = HttpRequestUtil.sendGet(url).replace("--", "0");
-                siteTrendEngineService.saveInfo(response, e, date);
+                String urlEngine = "https://openapi.baidu.com/rest/2.0/tongji/report/getData?access_token=" + accessToken + "&site_id=" + e + "&start_date=" + "20210429" + "&end_date=" + date + "&metrics=pv_count%2Cpv_ratio%2Cvisit_count%2Cvisitor_count%2Cnew_visitor_count%2Cnew_visitor_ratio%2Cip_count%2Cbounce_ratio%2Cavg_visit_time%2Cavg_visit_pages&method=source%2Fengine%2Fa&area=";
+                String urlSource = "https://openapi.baidu.com/rest/2.0/tongji/report/getData?access_token=" + accessToken + "&site_id=" + e + "&start_date=" + "20210429" + "&end_date=" + date + "&metrics=pv_count%2Cpv_ratio%2Cvisit_count%2Cvisitor_count%2Cnew_visitor_count%2Cnew_visitor_ratio%2Cip_count%2Cbounce_ratio%2Cavg_visit_time%2Cavg_visit_pages&method=source%2Fall%2Fa";
+                String engineResponse = HttpRequestUtil.sendGet(urlEngine).replace("--", "0");
+                String sourceResponse = HttpRequestUtil.sendGet(urlSource).replace("--", "0");
+                siteTrendEngineService.saveInfo(engineResponse, sourceResponse, e, date);
             });
             return ReturnT.SUCCESS;
         } catch (Exception e) {
