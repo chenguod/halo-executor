@@ -86,4 +86,21 @@ public class DateUtils {
         return Date;
     }
 
+    public static String getMonthFirst(String format){
+        SimpleDateFormat format1 = new SimpleDateFormat(format);
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.MONTH, 0);
+        c.set(Calendar.DAY_OF_MONTH,1);//设置为1号,当前日期既为本月第一天
+        String first = format1.format(c.getTime());
+        return first;
+    }
+
+    public static String getMonthLast(String format){
+        SimpleDateFormat format1 = new SimpleDateFormat(format);
+        Calendar ca = Calendar.getInstance();
+        ca.set(Calendar.DAY_OF_MONTH, ca.getActualMaximum(Calendar.DAY_OF_MONTH));
+        String last = format1.format(ca.getTime());
+        return last;
+    }
+
 }
