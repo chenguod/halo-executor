@@ -52,6 +52,9 @@ public class EmployController {
     @Autowired
     private SiteTrendAreaService siteTrendAreaService;
 
+    @Autowired
+    private SiteTrendEngineService siteTrendEngineService;
+
     @ApiOperation("新增需要收录的主站")
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
@@ -113,6 +116,19 @@ public class EmployController {
             String url = "https://openapi.baidu.com/rest/2.0/tongji/report/getData?access_token=" + accessToken + "&site_id=" + e + "&start_date=" + date + "&end_date=" + date + "&metrics=pv_count&method=overview%2FgetCommonTrackRpt";
             String response = HttpRequestUtil.sendGet(url);
             siteTrendOriginService.saveInfo(response, e, date);
+        });
+    }
+
+    @ApiOperation("测试获取百度统计站点趋势数据-搜索引擎")
+    @RequestMapping(value = "/test/searchEngine", method = RequestMethod.POST)
+    @ResponseBody
+    public void getSearchEngine(@RequestParam(value = "param") String param) throws ParseException {
+        String date = DateUtils.nowDate(-1, "yyyyMMdd");
+        List<String> siteIdList = siteListService.getSiteIds();
+        siteIdList.stream().forEach(e -> {
+            String url = "https://openapi.baidu.com/rest/2.0/tongji/report/getData?access_token=" + accessToken + "&site_id=" + e + "&start_date=" + "'20210429'" + "&end_date=" + "'20210629'" + "&metrics=pv_count%2Cpv_ratio%2Cvisit_count%2Cvisitor_count%2Cnew_visitor_count%2Cnew_visitor_ratio%2Cip_count%2Cbounce_ratio%2Cavg_visit_time%2Cavg_visit_pages&method=source%2Fengine%2Fa&area=";
+            String response = HttpRequestUtil.sendGet(url).replace("--","0");
+            siteTrendEngineService.saveInfo(response, e, date);
         });
     }
 }

@@ -2,6 +2,7 @@ package com.cgd.xxljobexecutor.xxlJob;
 
 import com.cgd.xxljobexecutor.service.SiteListService;
 import com.cgd.xxljobexecutor.service.SiteTrendAreaService;
+import com.cgd.xxljobexecutor.service.SiteTrendEngineService;
 import com.cgd.xxljobexecutor.service.SiteTrendOriginService;
 import com.cgd.xxljobexecutor.service.impl.SiteTrendServiceImpl;
 import com.cgd.xxljobexecutor.utils.DateUtils;
@@ -37,6 +38,9 @@ public class BaiduStatistics {
 
     @Autowired
     private SiteTrendOriginService siteTrendOriginService;
+
+    @Autowired
+    private SiteTrendEngineService siteTrendEngineService;
 
     @Value("${accessToken}")
     private String accessToken;
@@ -93,6 +97,23 @@ public class BaiduStatistics {
                 String url = "https://openapi.baidu.com/rest/2.0/tongji/report/getData?access_token=" + accessToken + "&site_id=" + e + "&start_date=" + date + "&end_date=" + date + "&metrics=pv_count&method=overview%2FgetCommonTrackRpt";
                 String response = HttpRequestUtil.sendGet(url);
                 siteTrendOriginService.saveInfo(response, e, date);
+            });
+            return ReturnT.SUCCESS;
+        } catch (Exception e) {
+            XxlJobLogger.log(e.getMessage());
+            return ReturnT.FAIL;
+        }
+    }
+
+    @XxlJob("GetSiteSearchEngine")
+    public ReturnT<String> getSiteSearchEngine(String param) {
+        String date = DateUtils.nowDate(-1, "yyyyMMdd");
+        List<String> siteIdList = siteListService.getSiteIds();
+        try {
+            siteIdList.stream().forEach(e -> {
+                String url = "https://openapi.baidu.com/rest/2.0/tongji/report/getData?access_token=" + accessToken + "&site_id=" + e + "&start_date=" + "'20210429'" + "&end_date=" + "'20210629'" + "&metrics=pv_count%2Cpv_ratio%2Cvisit_count%2Cvisitor_count%2Cnew_visitor_count%2Cnew_visitor_ratio%2Cip_count%2Cbounce_ratio%2Cavg_visit_time%2Cavg_visit_pages&method=source%2Fengine%2Fa&area=";
+                String response = HttpRequestUtil.sendGet(url).replace("--", "0");
+                siteTrendEngineService.saveInfo(response, e, date);
             });
             return ReturnT.SUCCESS;
         } catch (Exception e) {
