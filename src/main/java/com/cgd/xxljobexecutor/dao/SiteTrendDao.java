@@ -3,6 +3,8 @@ package com.cgd.xxljobexecutor.dao;
 import com.cgd.xxljobexecutor.model.SiteTrendModel;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * @author 晓果冻
  * @version 1.0
@@ -14,4 +16,6 @@ public interface SiteTrendDao {
     void insert(SiteTrendModel model);
 
     void insertMonth(SiteTrendModel model);
+
+    List<SiteTrendModel> selectAll(SiteTrendModel model);
 }

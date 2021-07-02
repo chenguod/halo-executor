@@ -74,15 +74,13 @@ public class EmployController {
     @RequestMapping(value = "/test/siteTrend", method = RequestMethod.POST)
     @ResponseBody
     public void getSiteTrend(@RequestParam(value = "param") String param) throws ParseException {
-        String date = param;
-        String startDate = DateUtils.getMonthFirst("yyyyMMdd").substring(0,6);
-        System.out.println(startDate);
-  /*      List<String> siteIdList = siteListService.getSiteIds();
+
+        List<String> siteIdList = siteListService.getSiteIds();
         siteIdList.stream().forEach(e -> {
-            String url = "https://openapi.baidu.com/rest/2.0/tongji/report/getData?access_token=" + accessToken + "&site_id=" + e + "&start_date=" + date + "&end_date=" + date + "&metrics=pv_count%2Cpv_ratio%2Cvisit_count%2Cvisitor_count%2Cnew_visitor_count%2Cnew_visitor_ratio%2Cip_count%2Cbounce_ratio%2Cavg_visit_time%2Cavg_visit_pages&method=trend%2Ftime%2Fa&gran=day&area=china";
+            String url = "https://openapi.baidu.com/rest/2.0/tongji/report/getData?access_token=" + accessToken + "&site_id=" + e + "&start_date=" + "20210601" + "&end_date=" + "20210630" + "&metrics=pv_count%2Cpv_ratio%2Cvisit_count%2Cvisitor_count%2Cnew_visitor_count%2Cnew_visitor_ratio%2Cip_count%2Cbounce_ratio%2Cavg_visit_time%2Cavg_visit_pages&method=trend%2Ftime%2Fa&gran=month&area=china";
             String response = HttpRequestUtil.sendGet(url).replace("--", "0");
-            siteTrendService.saveInfo(response, e, date);
-        });*/
+            siteTrendService.saveMonthInfo(response, e, "202106");
+        });
     }
 
     @ApiOperation("测试获取百度统计站点")

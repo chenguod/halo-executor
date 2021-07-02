@@ -30,4 +30,46 @@
         #{newVisitorCount,jdbcType=INTEGER},#{newVisitorRatio,jdbcType=NUMERIC},#{ipCount,jdbcType=INTEGER},#{bounceRatio,jdbcType=NUMERIC},#{avgVisitTime,jdbcType=INTEGER},
         #{avgVisitPages,jdbcType=INTEGER},#{date,jdbcType=VARCHAR})
     </insert>
+    <select id="selectAll" parameterType="com.cgd.xxljobexecutor.model.SiteTrendModel" resultMap="ResultMap">
+        select * from site_trend_month
+        where 1 = 1
+        <if test="siteId != null and siteId != ''">
+            and site_id = #{siteId,jdbcType=VARCHAR}
+        </if>
+        <if test="pvCount != null">
+            and pv_count = #{pvCount,jdbcType=INTEGER}
+        </if>
+        <if test="pvRatio != null">
+            and pv_ratio = #{pvRatio,jdbcType=VARCHAR}
+        </if>
+        <if test="visitCount != null">
+            and visit_count = #{visitCount,jdbcType=VARCHAR}
+        </if>
+        <if test="visitorCount != null">
+            and visitor_count = #{visitorCount,jdbcType=VARCHAR}
+        </if>
+        <if test="newVisitorCount != null">
+            and new_visitor_count = #{newVisitorCount,jdbcType=VARCHAR}
+        </if>
+        <if test="newVisitorRatio != null">
+            and new_visitor_ratio = #{newVisitorRatio,jdbcType=VARCHAR}
+        </if>
+        <if test="ipCount != null">
+            and ip_count = #{ipCount,jdbcType=VARCHAR}
+        </if>
+        <if test="bounceRatio != null">
+            and bounce_ratio = #{bounceRatio,jdbcType=VARCHAR}
+        </if>
+        <if test="avgVisitTime != null">
+            and avg_visit_time = #{avgVisitTime,jdbcType=VARCHAR}
+        </if>
+        <if test="avgVisitPages != null">
+            and avg_visit_pages = #{avgVisitPages,jdbcType=VARCHAR}
+        </if>
+        <if test="date != null and date != ''">
+            and date = #{date,jdbcType=VARCHAR}
+        </if>
+        GROUP BY site_id,date
+        order by date
+    </select>
 </mapper>
