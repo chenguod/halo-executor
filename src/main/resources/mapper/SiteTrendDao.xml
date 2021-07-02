@@ -23,6 +23,11 @@
         (#{siteId,jdbcType=VARCHAR},#{pvCount,jdbcType=INTEGER},#{pvRatio,jdbcType=NUMERIC},#{visitCount,jdbcType=INTEGER},#{visitorCount,jdbcType=INTEGER},
         #{newVisitorCount,jdbcType=INTEGER},#{newVisitorRatio,jdbcType=NUMERIC},#{ipCount,jdbcType=INTEGER},#{bounceRatio,jdbcType=NUMERIC},#{avgVisitTime,jdbcType=INTEGER},
         #{avgVisitPages,jdbcType=INTEGER},#{date,jdbcType=VARCHAR})
-
+    </insert>
+    <insert id="insertMonth"  parameterType="com.cgd.xxljobexecutor.model.SiteTrendModel">
+        replace into site_trend_month values
+        (#{siteId,jdbcType=VARCHAR},#{pvCount,jdbcType=INTEGER},#{pvRatio,jdbcType=NUMERIC},#{visitCount,jdbcType=INTEGER},#{visitorCount,jdbcType=INTEGER},
+        #{newVisitorCount,jdbcType=INTEGER},#{newVisitorRatio,jdbcType=NUMERIC},#{ipCount,jdbcType=INTEGER},#{bounceRatio,jdbcType=NUMERIC},#{avgVisitTime,jdbcType=INTEGER},
+        #{avgVisitPages,jdbcType=INTEGER},#{date,jdbcType=VARCHAR})
     </insert>
 </mapper>

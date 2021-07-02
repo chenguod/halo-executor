@@ -12,4 +12,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface SiteTrendDao {
 
     void insert(SiteTrendModel model);
+
+    void insertMonth(SiteTrendModel model);
 }

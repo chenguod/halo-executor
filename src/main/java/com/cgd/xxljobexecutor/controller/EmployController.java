@@ -75,12 +75,14 @@ public class EmployController {
     @ResponseBody
     public void getSiteTrend(@RequestParam(value = "param") String param) throws ParseException {
         String date = param;
-        List<String> siteIdList = siteListService.getSiteIds();
+        String startDate = DateUtils.getMonthFirst("yyyyMMdd").substring(0,6);
+        System.out.println(startDate);
+  /*      List<String> siteIdList = siteListService.getSiteIds();
         siteIdList.stream().forEach(e -> {
             String url = "https://openapi.baidu.com/rest/2.0/tongji/report/getData?access_token=" + accessToken + "&site_id=" + e + "&start_date=" + date + "&end_date=" + date + "&metrics=pv_count%2Cpv_ratio%2Cvisit_count%2Cvisitor_count%2Cnew_visitor_count%2Cnew_visitor_ratio%2Cip_count%2Cbounce_ratio%2Cavg_visit_time%2Cavg_visit_pages&method=trend%2Ftime%2Fa&gran=day&area=china";
             String response = HttpRequestUtil.sendGet(url).replace("--", "0");
             siteTrendService.saveInfo(response, e, date);
-        });
+        });*/
     }
 
     @ApiOperation("测试获取百度统计站点")
