@@ -8,4 +8,5 @@ package com.cgd.xxljobexecutor.service;
 public interface SiteTrendService {
 
     void saveInfo(String response, String siteId, String date);
+    void saveMonthInfo(String response, String siteId, String date);
 }

@@ -123,4 +123,22 @@ public class BaiduStatistics {
             return ReturnT.FAIL;
         }
     }
+
+    @XxlJob("GetSiteTrendMonthHandler")
+    public ReturnT<String> getSiteTrendMonth(String param) {
+        String startDate = DateUtils.getMonthFirst("yyyyMMdd");
+        String endDate = DateUtils.getMonthLast("yyyyMMdd");
+        List<String> siteIdList = siteListService.getSiteIds();
+        try {
+            siteIdList.stream().forEach(e -> {
+                String url = "https://openapi.baidu.com/rest/2.0/tongji/report/getData?access_token=" + accessToken + "&site_id=" + e + "&start_date=" + startDate + "&end_date=" + endDate + "&metrics=pv_count%2Cpv_ratio%2Cvisit_count%2Cvisitor_count%2Cnew_visitor_count%2Cnew_visitor_ratio%2Cip_count%2Cbounce_ratio%2Cavg_visit_time%2Cavg_visit_pages&method=trend%2Ftime%2Fa&gran=day&area=china";
+                String response = HttpRequestUtil.sendGet(url).replace("--", "0");
+                siteTrendService.saveMonthInfo(response, e, startDate.substring(0,6));
+            });
+            return ReturnT.SUCCESS;
+        } catch (Exception e) {
+            XxlJobLogger.log(e.getMessage());
+            return ReturnT.FAIL;
+        }
+    }
 }
