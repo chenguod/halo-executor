@@ -55,6 +55,9 @@ public class EmployController {
     @Autowired
     private SiteTrendEngineService siteTrendEngineService;
 
+    @Autowired
+    private SiteTrendSourceService siteTrendSourceService;
+
     @ApiOperation("新增需要收录的主站")
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
@@ -131,6 +134,20 @@ public class EmployController {
             String engineResponse = HttpRequestUtil.sendGet(urlEngine).replace("--", "0");
             String sourceResponse = HttpRequestUtil.sendGet(urlSource).replace("--", "0");
             siteTrendEngineService.saveInfo(engineResponse, sourceResponse, e);
+        });
+    }
+
+    @ApiOperation("测试获取百度统计站点趋势数据-全部来源")
+    @RequestMapping(value = "/test/siteSource", method = RequestMethod.POST)
+    @ResponseBody
+    public void getSiteSource(@RequestParam(value = "param") String param) throws ParseException {
+        String startDate = "20210601";
+        String endDate = DateUtils.getMonthLast("yyyyMMdd");
+        List<String> siteIdList = siteListService.getSiteIds();
+        siteIdList.stream().forEach(e -> {
+            String url = "https://openapi.baidu.com/rest/2.0/tongji/report/getData?access_token=" + accessToken + "&site_id=" + e + "&start_date=" + startDate + "&end_date=" + endDate + "&metrics=pv_count%2Cpv_ratio%2Cvisit_count%2Cvisitor_count%2Cnew_visitor_count%2Cnew_visitor_ratio%2Cip_count%2Cbounce_ratio%2Cavg_visit_time%2Cavg_visit_pages&method=source%2Fall%2Fa";
+            String response = HttpRequestUtil.sendGet(url);
+            siteTrendSourceService.saveInfo(response, e, startDate.substring(0, 6));
         });
     }
 }
