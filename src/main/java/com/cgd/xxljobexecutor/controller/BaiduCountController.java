@@ -1,7 +1,7 @@
 package com.cgd.xxljobexecutor.controller;
 
-import com.cgd.xxljobexecutor.model.DTO.VisitDTO;
-import com.cgd.xxljobexecutor.model.DTO.VisitVO;
+import com.cgd.xxljobexecutor.model.VO.AreaVO;
+import com.cgd.xxljobexecutor.model.VO.VisitVO;
 import com.cgd.xxljobexecutor.service.BaiduCountService;
 import com.cgd.xxljobexecutor.utils.ResponseMessage;
 import io.swagger.annotations.Api;
@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
 
 /**
  * @author 晓果冻
@@ -34,6 +32,14 @@ public class BaiduCountController {
     @ResponseBody
     public ResponseMessage<VisitVO> getSiteTrend(){
         VisitVO vo = baiduCountService.getVisitData();
+        return new ResponseMessage(ResponseMessage.SUCCESS_CODE,"success",vo);
+    }
+
+    @ApiOperation("获取百度统计-访问地区")
+    @RequestMapping(value = "/siteArea",method = RequestMethod.GET,produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
+    public ResponseMessage<AreaVO> getSiteArea(){
+        AreaVO vo = baiduCountService.getAreaDta();
         return new ResponseMessage(ResponseMessage.SUCCESS_CODE,"success",vo);
     }
 }

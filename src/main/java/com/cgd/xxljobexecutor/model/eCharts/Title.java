@@ -21,4 +21,6 @@ public class Title {
     private String left;
 
     private String top;
+
+    private String subtext;
 }

@@ -1,6 +1,6 @@
 package com.cgd.xxljobexecutor.utils;
 
-import com.cgd.xxljobexecutor.model.XmlDTO;
+import com.cgd.xxljobexecutor.model.DTO.XmlDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;

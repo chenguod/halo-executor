@@ -4,20 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 /**
  * @author 晓果冻
  * @version 1.0
- * @date 2021/7/2 22:41
+ * @date 2021/7/3 16:44
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SeriesItem<T> {
+public class PieData {
+    private Integer value;
     private String name;
-    private String type;
-    private String stack;
-    private List<T> data;
-
 }

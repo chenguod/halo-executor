@@ -3,7 +3,7 @@ package com.cgd.xxljobexecutor.xxlJob;
 import com.alibaba.fastjson.JSONObject;
 import com.cgd.xxljobexecutor.model.WebSiteDetailModel;
 import com.cgd.xxljobexecutor.model.WebSiteModel;
-import com.cgd.xxljobexecutor.model.XmlDTO;
+import com.cgd.xxljobexecutor.model.DTO.XmlDTO;
 import com.cgd.xxljobexecutor.service.WebSiteDetailService;
 import com.cgd.xxljobexecutor.service.WebSiteService;
 import com.cgd.xxljobexecutor.utils.AnalyzingXML;

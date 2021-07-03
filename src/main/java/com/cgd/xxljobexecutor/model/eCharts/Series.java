@@ -15,9 +15,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Series<T> {
-
     private String name;
     private String type;
     private String stack;
+    private String radius;
     private List<T> data;
+    private Emphasis emphasis;
 }

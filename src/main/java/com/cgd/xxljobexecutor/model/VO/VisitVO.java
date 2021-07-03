@@ -1,4 +1,4 @@
-package com.cgd.xxljobexecutor.model.DTO;
+package com.cgd.xxljobexecutor.model.VO;
 
 import com.cgd.xxljobexecutor.model.eCharts.*;
 import com.fasterxml.jackson.annotation.JsonProperty;

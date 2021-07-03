@@ -1,4 +1,4 @@
-package com.cgd.xxljobexecutor.model;
+package com.cgd.xxljobexecutor.model.DTO;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

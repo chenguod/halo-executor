@@ -11,10 +11,20 @@
         <result property="date" column="date" jdbcType="VARCHAR"/>
     </resultMap>
 
+    <resultMap type="com.cgd.xxljobexecutor.model.DTO.AreaDTO" id="AreaMap">
+        <result property="name" column="area" jdbcType="VARCHAR"/>
+        <result property="value" column="total" jdbcType="INTEGER"/>
+    </resultMap>
+
     <insert id="insert"  parameterType="com.cgd.xxljobexecutor.model.SiteTrendAreaModel">
         insert into site_trend_area (site_id,area,pv_count,ratio,date) values
         <foreach collection="list" item="item" index="index" separator=",">
         (#{item.siteId,jdbcType=VARCHAR},#{item.area,jdbcType=VARCHAR},#{item.pvCount,jdbcType=INTEGER},#{item.ratio,jdbcType=NUMERIC},#{item.date,jdbcType=VARCHAR})
         </foreach>
     </insert>
+
+    <select id="selectAll" resultMap="AreaMap">
+        SELECT SUM(pv_count) AS total, AREA
+        FROM site_trend_area GROUP BY AREA ORDER BY total DESC LIMIT 10
+    </select>
 </mapper>

@@ -1,11 +1,13 @@
 package com.cgd.xxljobexecutor.service.impl;
 
+import com.cgd.xxljobexecutor.dao.SiteTrendAreaDao;
 import com.cgd.xxljobexecutor.dao.SiteTrendDao;
+import com.cgd.xxljobexecutor.model.DTO.AreaDTO;
 import com.cgd.xxljobexecutor.model.DTO.VisitDTO;
-import com.cgd.xxljobexecutor.model.DTO.VisitVO;
+import com.cgd.xxljobexecutor.model.VO.AreaVO;
+import com.cgd.xxljobexecutor.model.VO.VisitVO;
 import com.cgd.xxljobexecutor.model.eCharts.*;
 import com.cgd.xxljobexecutor.service.BaiduCountService;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,16 +27,19 @@ public class BaiduCountServiceImpl implements BaiduCountService {
     @Autowired
     private SiteTrendDao siteTrendDao;
 
+    @Autowired
+    private SiteTrendAreaDao siteTrendAreaDao;
+
     @Override
     public VisitVO getVisitData() {
         List<VisitDTO> list = siteTrendDao.selectVisitInfo();
         List<String> monthList = list.stream().map(VisitDTO::getMonth).sorted().collect(Collectors.toList());
         VisitVO vo = new VisitVO();
-        vo.setTitle(new Title("站点趋势统计图","center","1px"));
+        vo.setTitle(new Title("站点趋势统计图", "left", "0px", "数据来源于百度统计"));
         vo.setTooltip(new Tooltip("axis"));
-        vo.setLegend(new Legend(Arrays.asList("浏览量(PV)","访问次数","访客数(UV)","新访客数","IP数"),"30px"));
-        vo.setGrid(new Grid("3%","4%","3%",true));
-        vo.setXAxis(new XAxis("category",false,monthList));
+        vo.setLegend(new Legend("horizontal",Arrays.asList("浏览量(PV)", "访问次数", "访客数(UV)", "新访客数", "IP数"), "10px","center"));
+        vo.setGrid(new Grid("3%", "4%", "3%", true));
+        vo.setXAxis(new XAxis("category", false, monthList));
         vo.setYAxis(new YAxis("value"));
         List<Series<Integer>> seriesList = new ArrayList<>();
         List<Integer> pvList = list.stream().map(VisitDTO::getPvCount).collect(Collectors.toList());//浏览量(PV
@@ -42,13 +47,28 @@ public class BaiduCountServiceImpl implements BaiduCountService {
         List<Integer> uvList = list.stream().map(VisitDTO::getVisitorCount).collect(Collectors.toList());//访客数(UV)
         List<Integer> newVisitorList = list.stream().map(VisitDTO::getNewVisitorCount).collect(Collectors.toList());//新访客数
         List<Integer> ipList = list.stream().map(VisitDTO::getIpCount).collect(Collectors.toList());//IP数
-        seriesList.add(new Series<Integer>("浏览量(PV)","line","总量",pvList));
-        seriesList.add(new Series<Integer>("访问次数","line","总量",visitList));
-        seriesList.add(new Series<Integer>("访客数(UV)","line","总量",uvList));
-        seriesList.add(new Series<Integer>("新访客数","line","总量",newVisitorList));
-        seriesList.add(new Series<Integer>("IP数","line","总量",ipList));
-        Feature feature = new Feature(new MagicType(true,Arrays.asList("line","bar","stack")),new SaveAsImage("png"),new Restore(true));
+        seriesList.add(new Series<Integer>("浏览量(PV)", "line", "总量", null, pvList, null));
+        seriesList.add(new Series<Integer>("访问次数", "line",  "总量", null,visitList, null));
+        seriesList.add(new Series<Integer>("访客数(UV)", "line", "总量",null,  uvList, null));
+        seriesList.add(new Series<Integer>("新访客数", "line",  "总量", null,newVisitorList, null));
+        seriesList.add(new Series<Integer>("IP数", "line",  "总量",null, ipList, null));
+        Feature feature = new Feature(new MagicType(true, Arrays.asList("line", "bar", "stack")), new SaveAsImage("png"), new Restore(true));
         vo.setToolbox(new Toolbox(feature));
+        vo.setSeries(seriesList);
+        return vo;
+    }
+
+    @Override
+    public AreaVO getAreaDta() {
+        List<AreaDTO> list = siteTrendAreaDao.selectAll();
+        AreaVO vo = new AreaVO();
+        vo.setTitle(new Title("访问地统计Top10", "left", "0px", "数据来源于百度统计"));
+        vo.setTooltip(new Tooltip("item"));
+        vo.setLegend(new Legend("vertical",null, "60px","10px"));
+        Feature feature = new Feature(null, new SaveAsImage("png"), new Restore(true));
+        vo.setToolbox(new Toolbox(feature));
+        List<Series<AreaDTO>> seriesList = new ArrayList<>();
+        seriesList.add(new Series<AreaDTO>("来源地区","pie",null,"50%",list,new Emphasis(new ItemStyle(10,0,"rgba(0, 0, 0, 0.5)"))));
         vo.setSeries(seriesList);
         return vo;
     }
