@@ -35,7 +35,7 @@ public class BaiduCountController {
         return new ResponseMessage(ResponseMessage.SUCCESS_CODE,"success",vo);
     }
 
-    @ApiOperation("获取百度统计-访问地区")
+    @ApiOperation("获取百度统计-地域分布")
     @RequestMapping(value = "/siteArea",method = RequestMethod.GET,produces = {"application/json;charset=UTF-8"})
     @ResponseBody
     public ResponseMessage<AreaVO> getSiteArea(){

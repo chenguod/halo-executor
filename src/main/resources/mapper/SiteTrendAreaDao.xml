@@ -25,6 +25,6 @@
 
     <select id="selectAll" resultMap="AreaMap">
         SELECT SUM(pv_count) AS total, AREA
-        FROM site_trend_area GROUP BY AREA ORDER BY total DESC LIMIT 10
+        FROM site_trend_area GROUP BY AREA ORDER BY total DESC
     </select>
 </mapper>

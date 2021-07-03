@@ -62,7 +62,7 @@ public class BaiduCountServiceImpl implements BaiduCountService {
     public AreaVO getAreaDta() {
         List<AreaDTO> list = siteTrendAreaDao.selectAll();
         AreaVO vo = new AreaVO();
-        vo.setTitle(new Title("访问地统计Top10", "left", "0px", "数据来源于百度统计"));
+        vo.setTitle(new Title("地域分布", "left", "0px", "数据来源于百度统计"));
         vo.setTooltip(new Tooltip("item"));
         vo.setLegend(new Legend("vertical",null, "60px","10px"));
         Feature feature = new Feature(null, new SaveAsImage("png"), new Restore(true));
