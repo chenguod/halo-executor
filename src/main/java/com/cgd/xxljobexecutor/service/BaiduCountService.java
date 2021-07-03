@@ -1,8 +1,6 @@
 package com.cgd.xxljobexecutor.service;
 
-import com.cgd.xxljobexecutor.model.SiteTrendModel;
-
-import java.util.List;
+import com.cgd.xxljobexecutor.model.DTO.VisitVO;
 
 /**
  * @author 晓果冻
@@ -11,5 +9,5 @@ import java.util.List;
  */
 public interface BaiduCountService {
 
-    List<SiteTrendModel> getVisitData(SiteTrendModel model);
+    VisitVO getVisitData();
 }

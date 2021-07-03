@@ -1,11 +1,11 @@
 package com.cgd.xxljobexecutor.model.DTO;
 
+import com.cgd.xxljobexecutor.model.eCharts.*;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.math.BigDecimal;
+import org.yaml.snakeyaml.Yaml;
 
 /**
  * @author 晓果冻
@@ -32,6 +32,6 @@ public class VisitDTO {
     @ApiModelProperty(notes = "IP 数")
     private Integer ipCount;
 
-    @ApiModelProperty(notes = "日期, 以北京时间表示")
-    private String date;
+    @ApiModelProperty(notes = "月份")
+    private String month;
 }

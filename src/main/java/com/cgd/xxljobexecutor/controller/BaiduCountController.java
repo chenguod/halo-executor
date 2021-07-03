@@ -1,6 +1,7 @@
 package com.cgd.xxljobexecutor.controller;
 
-import com.cgd.xxljobexecutor.model.SiteTrendModel;
+import com.cgd.xxljobexecutor.model.DTO.VisitDTO;
+import com.cgd.xxljobexecutor.model.DTO.VisitVO;
 import com.cgd.xxljobexecutor.service.BaiduCountService;
 import com.cgd.xxljobexecutor.utils.ResponseMessage;
 import io.swagger.annotations.Api;
@@ -28,12 +29,11 @@ public class BaiduCountController {
     @Autowired
     private BaiduCountService baiduCountService;
 
-    @ApiOperation("获取百度统计趋势1数据-月度")
+    @ApiOperation("获取百度统计趋势数据-月度")
     @RequestMapping(value = "/siteTrend",method = RequestMethod.GET,produces = {"application/json;charset=UTF-8"})
     @ResponseBody
-    public ResponseMessage<SiteTrendModel> getSiteTrend(){
-        SiteTrendModel model = null;
-        List<SiteTrendModel> list = baiduCountService.getVisitData(model);
-        return new ResponseMessage(ResponseMessage.SUCCESS_CODE,"success",list);
+    public ResponseMessage<VisitVO> getSiteTrend(){
+        VisitVO vo = baiduCountService.getVisitData();
+        return new ResponseMessage(ResponseMessage.SUCCESS_CODE,"success",vo);
     }
 }

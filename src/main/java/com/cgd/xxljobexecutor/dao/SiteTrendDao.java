@@ -1,5 +1,6 @@
 package com.cgd.xxljobexecutor.dao;
 
+import com.cgd.xxljobexecutor.model.DTO.VisitDTO;
 import com.cgd.xxljobexecutor.model.SiteTrendModel;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -17,5 +18,5 @@ public interface SiteTrendDao {
 
     void insertMonth(SiteTrendModel model);
 
-    List<SiteTrendModel> selectAll(SiteTrendModel model);
+    List<VisitDTO> selectVisitInfo();
 }
