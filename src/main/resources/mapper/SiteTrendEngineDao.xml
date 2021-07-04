@@ -18,6 +18,11 @@
         <result property="avgVisitPages" column="avg_visit_pages" jdbcType="INTEGER"/>
     </resultMap>
 
+    <resultMap type="com.cgd.xxljobexecutor.model.DTO.AreaDTO" id="AreaMap">
+        <result property="name" column="search_engine" jdbcType="VARCHAR"/>
+        <result property="value" column="pv_count" jdbcType="INTEGER"/>
+    </resultMap>
+
     <insert id="insert"  parameterType="com.cgd.xxljobexecutor.model.SiteTrendEngineModel">
         replace into site_trend_engine (site_id,search_engine,pv_count,pv_ratio,visit_count,visitor_count,new_visitor_count,
         new_visitor_ratio,ip_count,bounce_ratio,avg_visit_time,avg_visit_pages)values
@@ -27,4 +32,8 @@
         #{item.avgVisitPages,jdbcType=INTEGER})
         </foreach>
     </insert>
+
+    <select id="selectAll" resultMap="AreaMap">
+        SELECT pv_count,search_engine FROM site_trend_engine
+    </select>
 </mapper>

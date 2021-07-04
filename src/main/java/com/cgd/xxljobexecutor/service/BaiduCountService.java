@@ -1,6 +1,7 @@
 package com.cgd.xxljobexecutor.service;
 
 import com.cgd.xxljobexecutor.model.VO.AreaVO;
+import com.cgd.xxljobexecutor.model.VO.SourceVO;
 import com.cgd.xxljobexecutor.model.VO.VisitVO;
 
 /**
@@ -13,4 +14,6 @@ public interface BaiduCountService {
     VisitVO getVisitData();
 
     AreaVO getAreaDta();
+
+    SourceVO getSource();
 }

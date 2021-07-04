@@ -1,6 +1,7 @@
 package com.cgd.xxljobexecutor.controller;
 
 import com.cgd.xxljobexecutor.model.VO.AreaVO;
+import com.cgd.xxljobexecutor.model.VO.SourceVO;
 import com.cgd.xxljobexecutor.model.VO.VisitVO;
 import com.cgd.xxljobexecutor.service.BaiduCountService;
 import com.cgd.xxljobexecutor.utils.ResponseMessage;
@@ -42,4 +43,13 @@ public class BaiduCountController {
         AreaVO vo = baiduCountService.getAreaDta();
         return new ResponseMessage(ResponseMessage.SUCCESS_CODE,"success",vo);
     }
+
+    @ApiOperation("获取百度统计-全部来源")
+    @RequestMapping(value = "/siteSource",method = RequestMethod.GET,produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
+    public ResponseMessage<SourceVO> getSiteSource(){
+        SourceVO vo = baiduCountService.getSource();
+        return new ResponseMessage(ResponseMessage.SUCCESS_CODE,"success",vo);
+    }
+
 }

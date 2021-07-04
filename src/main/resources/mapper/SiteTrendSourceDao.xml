@@ -19,6 +19,12 @@
         <result property="date" column="date" jdbcType="VARCHAR"/>
     </resultMap>
 
+    <resultMap type="com.cgd.xxljobexecutor.model.DTO.AreaDTO" id="AreaMap">
+        <result property="name" column="source_type" jdbcType="VARCHAR"/>
+        <result property="value" column="total" jdbcType="INTEGER"/>
+    </resultMap>
+
+
     <insert id="insert"  parameterType="com.cgd.xxljobexecutor.model.SiteTrendSourceModel">
         replace into site_trend_source (site_id,source_type,pv_count,pv_ratio,visit_count,visitor_count,new_visitor_count,
         new_visitor_ratio,ip_count,bounce_ratio,avg_visit_time,avg_visit_pages,date)values
@@ -28,4 +34,8 @@
         #{item.avgVisitPages,jdbcType=INTEGER},#{item.date,jdbcType=VARCHAR})
         </foreach>
     </insert>
+
+    <select id="selectAll" resultMap="AreaMap">
+        SELECT SUM(pv_count) as total,source_type FROM site_trend_source WHERE site_id = '16873420' GROUP BY source_type order by source_type desc
+    </select>
 </mapper>

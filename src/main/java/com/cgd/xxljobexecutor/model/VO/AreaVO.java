@@ -1,6 +1,6 @@
 package com.cgd.xxljobexecutor.model.VO;
 
-import com.cgd.xxljobexecutor.model.DTO.AreaDTO;
+import com.cgd.xxljobexecutor.model.eCharts.Series;
 import com.cgd.xxljobexecutor.model.eCharts.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

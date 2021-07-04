@@ -17,4 +17,10 @@ public class Tooltip {
 
     @ApiModelProperty(notes = "触发类型")
     private String trigger;
+
+    private String formatter;
+
+    public Tooltip(String trigger) {
+        this.trigger = trigger;
+    }
 }

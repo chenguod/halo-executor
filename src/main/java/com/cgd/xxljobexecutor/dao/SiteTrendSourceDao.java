@@ -1,5 +1,6 @@
 package com.cgd.xxljobexecutor.dao;
 
+import com.cgd.xxljobexecutor.model.DTO.AreaDTO;
 import com.cgd.xxljobexecutor.model.SiteTrendSourceModel;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,4 +14,6 @@ import java.util.List;
 @Mapper
 public interface SiteTrendSourceDao {
     void insert(List<SiteTrendSourceModel> list);
+
+    List<AreaDTO> selectAll();
 }
