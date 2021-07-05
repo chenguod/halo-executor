@@ -1,94 +1,46 @@
 # xxl-job-executor
 
 #### 介绍
-1. 主要用于主动推送百度收录所需的url，配置文件都放在nacos上。
-2. 用户名admin（pwd:admin）账号是演示账号，无法增删改任务，只有查看权限
-3. 未来将会增加谷歌收录定时任务
+1. 本项目是服务于我个人的博客，用于加快百度收录和百度数据统计及回收的。由于很多地方需要定时查询，所以该项目也依赖于`xxl-job`。
+2. 感兴趣的可以大致学习下[xxl-job官方文档](https://www.xuxueli.com/xxl-job/#%E3%80%8A%E5%88%86%E5%B8%83%E5%BC%8F%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6%E5%B9%B3%E5%8F%B0XXL-JOB%E3%80%8B)
 
 #### 软件架构
-- 主要技术栈：nacos、springboot、mybatis、dom4j等技术。
+- 主要技术栈：`nacos、springboot、mybatis、dom4j`等技术,`nacos`是个人用来练手的，不喜欢可以将配置文件都写在`application.yml`中。
 
-- 建库语句：
-
-  ```mysql
-  /*
-  SQLyog Ultimate v12.09 (64 bit)
-  MySQL - 8.0.18 : Database - executor
-  *********************************************************************
-  */
-  
-  
-  /*!40101 SET NAMES utf8 */;
-  
-  /*!40101 SET SQL_MODE=''*/;
-  
-  /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-  /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-  /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-  /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-  CREATE DATABASE /*!32312 IF NOT EXISTS*/`executor` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-  
-  USE `executor`;
-  
-  /*Table structure for table `website` */
-  
-  DROP TABLE IF EXISTS `website`;
-  
-  CREATE TABLE `website` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `site_map` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '站点地图地址',
-    `url` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '站点',
-    `token` varchar(200) NOT NULL COMMENT '百度token',
-    `import_time` datetime DEFAULT NULL COMMENT '导入时间',
-    `num` int(11) DEFAULT NULL COMMENT '数量',
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `unique` (`url`)
-  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-  
-  /*Table structure for table `website_detail` */
-  
-  DROP TABLE IF EXISTS `website_detail`;
-  
-  CREATE TABLE `website_detail` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `p_id` int(11) NOT NULL COMMENT '需推送网站',
-    `url` varchar(200) NOT NULL COMMENT '需提交收录的网址',
-    `create_time` date NOT NULL COMMENT '链接生成时间',
-    `push_flag` int(11) DEFAULT '0' COMMENT '0 未推送  1 已推送',
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `unique` (`url`)
-  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-  
-  /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-  /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-  /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-  /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-  ```
-
-1. 第一步：根据website表每日定时更新detail表中的数据。
-2. 第二步：每天晚上10定时向百度推送新增的网址
 
 
 #### 安装教程
 
-1.  导入数据库脚本
-2.  导入nacos数据
+1. 导入数据库脚本
+
+   ```
+   脚本位置：xxl-job-executor\doc\数据库脚本\executor
+   在mysql中直接执行即可
+   ```
+
+2. 导入`nacos`数据
+
+   ```
+   我nacos都是放在dev环境  所以需要创建一个dev的namespace
+   xxl-job和executor的配置文件都在xxl-job-executor\doc\nacos\下放着，使用时直接在对应namespace导入即可
+   ```
 
 #### 使用说明
 
-#### 参与贡献
+- 项目主要功能图解
+  ![image-20210705141446133](https://images.chenmx.net//blog20210705143851.png!halo)
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+#### 关于echarts统计图表部分
 
+- 由于鄙人是个前端大菜鸡，所以让我在前端拼echart的数据是根本不可能的事情啦，通过观察，发现`echarts`图其实有很多相通的属性，随意俺就把它每个属性都封装成一个实体类了，数据传到前端仅仅需要短短的几句就可以把漂亮的`echarts`图渲染出来，如：
 
-#### 特技
+  ```
+  var chartDom = document.getElementById('main');
+  var myChart = echarts.init(chartDom);
+  var option;
+  option && myChart.setOption(option);
+  ```
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+- 我在这里是后端把全部需要的数据做了处理，这段仅针对使用`halo`主题的朋友，如果有大佬其实可以做成可以配置的，将`access_token`配置在主题的配置文件,后端提供需要数据的统一接口，这样就可以造福广大`halo`博友了。无奈鄙人前端太菜，完成不了，哭唧唧`ing`。
+- 有关ACCESS_TOKEN获取的教程，请参考我的[另一篇文章](https://www.chenmx.net/?p=242)
+按照以上的文档应该可以正常启动项目了，如果启动不了，可以在我的[小破站](https://www.chenmx.net)留言反馈，我看到都会一一回答，当然我也是只菜鸡，很多地方赶时间都没设计好，欢迎各位看官们积极指出。

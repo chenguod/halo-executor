@@ -2,13 +2,13 @@ spring:
   cloud:
     sentinel:
       transport:
-        dasshboard: http://kubernetes.chenmx.net:32594
+        dasshboard: http://localhost:8858
     nacos:
       discovery:
-        server-addr: http://kubernetes.chenmx.net:32757
+        server-addr: http://localhost:8848
         namespace: dev
       config:
-        server-addr: http://kubernetes.chenmx.net:32757
+        server-addr: http://localhost:8848
         #文件后缀
         file-extension: yaml
         #指定分组

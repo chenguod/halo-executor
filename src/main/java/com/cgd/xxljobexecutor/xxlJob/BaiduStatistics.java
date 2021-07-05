@@ -45,6 +45,11 @@ public class BaiduStatistics {
     @Value("${accessToken}")
     private String accessToken;
 
+    /**
+     * 定时获取百度统计网站列表
+     * @param param
+     * @return
+     */
     @XxlJob("GetSiteListHandler")
     public ReturnT<String> getSiteList(String param) {
         param = "access_token=" + accessToken;
@@ -54,6 +59,11 @@ public class BaiduStatistics {
         return new ReturnT<>(ReturnT.SUCCESS_CODE, "<p style=\"color:green\">获取:" + num + "条站点信息</p>\n");
     }
 
+    /**
+     * 抽取昨日网站趋势数据
+     * @param param  预留参数 后续可能会用到
+     * @return
+     */
     @XxlJob("GetSiteTrendHandler")
     public ReturnT<String> getSiteTrend(String param) {
         String date = DateUtils.nowDate(-1, "yyyyMMdd");
@@ -71,6 +81,11 @@ public class BaiduStatistics {
         }
     }
 
+    /**
+     * 抽取昨日地域分布数据
+     * @param param  预留参数 后续可能会用到
+     * @return
+     */
     @XxlJob("GetSiteTrendAreaHandler")
     public ReturnT<String> getSiteTrendArea(String param) {
         String date = DateUtils.nowDate(-1, "yyyyMMdd");
@@ -88,6 +103,11 @@ public class BaiduStatistics {
         }
     }
 
+    /**
+     * 抽取网站具体来源  具体到某个网址
+     * @param param  预留参数 后续可能会用到
+     * @return
+     */
     @XxlJob("GetCommonTrackRptHandler")
     public ReturnT<String> getCommonTrackRpt(String param) {
         String date = DateUtils.nowDate(-1, "yyyyMMdd");
@@ -105,6 +125,12 @@ public class BaiduStatistics {
         }
     }
 
+    /**
+     * 抽取从建站以来网站从各个搜索引擎来的个数
+     * startDate改成早于开始统计网站数据的时间即可
+     * @param param  预留参数 后续可能会用到
+     * @return
+     */
     @XxlJob("GetSiteSearchEngine")
     public ReturnT<String> getSiteSearchEngine(String param) {
         String date = DateUtils.nowDate(-1, "yyyyMMdd");
@@ -124,6 +150,11 @@ public class BaiduStatistics {
         }
     }
 
+    /**
+     * 按月抽取网站趋势数据
+     * @param param  预留参数 后续可能会用到
+     * @return
+     */
     @XxlJob("GetSiteTrendMonthHandler")
     public ReturnT<String> getSiteTrendMonth(String param) {
         String startDate = DateUtils.getMonthFirst("yyyyMMdd");
@@ -142,6 +173,11 @@ public class BaiduStatistics {
         }
     }
 
+    /**
+     * 按月抽取网站全部来源数
+     * @param param  预留参数 后续可能会用到
+     * @return
+     */
     @XxlJob("GetSiteSourceHandle")
     public ReturnT<String> getSiteSource(String param) {
         String startDate = DateUtils.getMonthFirst("yyyyMMdd");
