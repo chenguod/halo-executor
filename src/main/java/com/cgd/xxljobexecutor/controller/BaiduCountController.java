@@ -10,16 +10,14 @@ import com.cgd.xxljobexecutor.model.VO.SourceVO;
 import com.cgd.xxljobexecutor.model.VO.VisitVO;
 import com.cgd.xxljobexecutor.service.*;
 import com.cgd.xxljobexecutor.service.impl.SiteTrendServiceImpl;
-import com.cgd.xxljobexecutor.utils.CheckLinks;
-import com.cgd.xxljobexecutor.utils.DateUtils;
-import com.cgd.xxljobexecutor.utils.HttpRequestUtil;
-import com.cgd.xxljobexecutor.utils.ResponseMessage;
+import com.cgd.xxljobexecutor.utils.*;
 import com.cgd.xxljobexecutor.xxlJob.BaiduStatistics;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.log.XxlJobLogger;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -89,19 +87,23 @@ public class BaiduCountController {
         return new ResponseMessage<>(ResponseMessage.SUCCESS_CODE, "success", map);
     }
 
-    @ApiOperation("测试")
-    @RequestMapping(value = "/test", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
-    @ResponseBody
-    public void test() {
-/*        Map<String,String> map = refreshTokenDao.getRefreshToken();
-        System.out.println(BaiduStatistics.accessToken);
-        String refreshToken = map.get("refreshToken");
-        String accessToken = map.get("accessToken");
-        String url = "http://openapi.baidu.com/oauth/2.0/token?grant_type=refresh_token&refresh_token=" + refreshToken + "&client_id=vZ3LoCaZ0vsBDXZKSI&client_secret=jV3wzVuG66TIAzTmVfUpttxBl";
-        String response = HttpRequestUtil.sendGet(url);
-        JSONObject json = JSONObject.parseObject(response);
-        refreshToken = json.getString("refresh_token");
-        accessToken = json.getString("access_token");
-        refreshTokenDao.insert(refreshToken,accessToken);*/
+    public static void main(String[] args) {
+        String site = "https://www.chenmx.net";
+        String pat = "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";
+        JSONObject gitHubUser = GitHubUtil.getGitHubUser(pat);
+
+        String loginName = gitHubUser.getString("login");
+        String repository = "halo-blog";
+        String repositoryDesc = "✍  晓果冻的个人博客-一个热爱生活的90后";
+        JSONObject body = new JSONObject();
+        body.put("name", repository);
+        body.put("description", repositoryDesc);
+        body.put("homepage", site);
+        body.put("has_wiki", false);
+        body.put("has_projects", false);
+        boolean ok = GitHubUtil.createOrUpdateGitHubRepo(pat, loginName, repository, "✍️ 晓果冻的个人博客 - 一个热爱生活的90后", site);
+        System.out.println();
+
+
     }
 }

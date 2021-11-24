@@ -113,6 +113,11 @@
             <artifactId>spring-cloud-alibaba-sentinel</artifactId>
             <version>2.1.0.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>org.jodd</groupId>
+            <artifactId>jodd-http</artifactId>
+            <version>6.0.5</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
