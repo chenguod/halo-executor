@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cgd.xxljobexecutor.dao.executor.WebSiteDetailDao">
+
+    <resultMap type="com.cgd.xxljobexecutor.model.WebSiteDetailModel" id="ResultMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="pId" column="p_id" jdbcType="INTEGER"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="DATE"/>
+        <result property="pushFlag" column="push_flag" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <insert id="insertBatch" parameterType="com.cgd.xxljobexecutor.model.WebSiteDetailModel">
+        insert into website_detail(p_id,url,create_time) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.pId,jdbcType=INTEGER},#{item.url,jdbcType=VARCHAR},#{item.createTime,jdbcType=DATE})
+        </foreach>
+    </insert>
+
+    <insert id="insert" parameterType="com.cgd.xxljobexecutor.model.WebSiteDetailModel">
+        insert into website_detail(p_id,url,create_time) values
+        (#{pId,jdbcType=INTEGER},#{url,jdbcType=VARCHAR},#{createTime,jdbcType=DATE})
+    </insert>
+
+    <select id="selectAll" parameterType="com.cgd.xxljobexecutor.model.WebSiteDetailModel" resultMap="ResultMap">
+        select * from  website_detail where 1= 1
+        <if test="pushFlag != null">
+            and push_flag = #{pushFlag}
+        </if>
+        <if test="createTime !='' and createTime != null">
+            and create_time = #{createTime}
+        </if>
+        <if test="pId != null">
+            and p_id = #{pId}
+        </if>
+        <if test="url !='' and url != null">
+            and url = #{url}
+        </if>
+    </select>
+
+    <delete id="truncate">
+        truncate website_detail
+    </delete>
+
+    <update id="updatePushFlag" parameterType="java.util.List">
+        update website_detail set push_flag = 1 where url in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+</mapper>

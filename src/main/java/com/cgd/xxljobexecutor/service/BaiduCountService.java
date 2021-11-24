@@ -4,6 +4,9 @@ import com.cgd.xxljobexecutor.model.VO.AreaVO;
 import com.cgd.xxljobexecutor.model.VO.SourceVO;
 import com.cgd.xxljobexecutor.model.VO.VisitVO;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author 晓果冻
  * @version 1.0
@@ -16,4 +19,6 @@ public interface BaiduCountService {
     AreaVO getAreaDta();
 
     SourceVO getSource();
+
+    Map getPvCount();
 }

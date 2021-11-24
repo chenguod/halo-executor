@@ -27,7 +27,7 @@ public class DateUtils {
         Date date = calendar.getTime();
         String dateString = sdf.format(date);
         Date dateParse = sdf.parse(dateString);
-        return date;
+        return dateParse;
     }
 
     /**

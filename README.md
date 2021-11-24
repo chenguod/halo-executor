@@ -1,13 +1,19 @@
-# 站长工具
+# xxl-job-executor-站长工具
 
 #### 介绍
-1. 本项目是服务于我个人的博客，用于加快百度收录和百度数据统计及回收的。由于很多地方需要定时查询，所以该项目也依赖于`xxl-job`。
-2. 感兴趣的可以大致学习下[xxl-job官方文档](https://www.xuxueli.com/xxl-job/#%E3%80%8A%E5%88%86%E5%B8%83%E5%BC%8F%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6%E5%B9%B3%E5%8F%B0XXL-JOB%E3%80%8B)
+
+**本项目是服务于我个人的博客，用于加快百度收录和百度数据统计。由于很多地方需要定时查询，所以该项目也依赖于[xxl-job](https://gitee.com/xuxueli0323/xxl-job)。**
+
+#### 主要功能
+
+- 友情链接管理。
+- 百度统计数据整合。
+- 自动获取百度统计access_token。
+- 自动推送博文到百度收录。
 
 #### 软件架构
+
 - 主要技术栈：`nacos、springboot、mybatis、dom4j`等技术,`nacos`是个人用来练手的，不喜欢可以将配置文件都写在`application.yml`中。
-
-
 
 #### 安装教程
 
@@ -21,9 +27,10 @@
 2. 导入`nacos`数据
 
    ```
-   我nacos都是放在dev环境  所以需要创建一个dev的namespace
-   xxl-job和executor的配置文件都在xxl-job-executor\doc\nacos\下放着，使用时直接在对应namespace导入即可
+   如果不是学习nacos，本项目不推荐使用nacos。先删除application.yml和bootstrap.yml，然后将application-noNacos.yml重命名为application.yml即可。
    ```
+
+   ![image.png](https://ae04.alicdn.com/kf/He49ab63ed3ce455fb53a8db070da7a46v.png)
 
 #### 使用说明
 
@@ -42,5 +49,7 @@
   ```
 
 - 我在这里是后端把全部需要的数据做了处理，这段仅针对使用`halo`主题的朋友，如果有大佬其实可以做成可以配置的，将`access_token`配置在主题的配置文件,后端提供需要数据的统一接口，这样就可以造福广大`halo`博友了。无奈鄙人前端太菜，完成不了，哭唧唧`ing`。
-- 有关ACCESS_TOKEN获取的教程，请参考我的[另一篇文章](https://www.chenmx.net/?p=242)
-按照以上的文档应该可以正常启动项目了，如果启动不了，可以在我的[小破站](https://www.chenmx.net)留言反馈，我看到都会一一回答，当然我也是只菜鸡，很多地方赶时间都没设计好，欢迎各位看官们积极指出。
+
+- 有关ACCESS_TOKEN获取的教程，请参考我的[另一篇文章](https://www.chenmx.net/?p=242)：https://www.chenmx.net/?p=242
+  按照以上的文档应该可以正常启动项目了，如果启动不了，可以在我的[小破站](https://www.chenmx.net):https://www.chenmx.net留言反馈，我看到都会一一回答，当然我也是只菜鸡，很多地方赶时间都没设计好，欢迎各位看官们积极指出。
+

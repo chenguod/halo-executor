@@ -26,9 +26,15 @@ public class SiteTrendAreaModel {
     @ApiModelProperty(notes = "浏览量(PV)")
     private Integer pvCount;
 
-    @ApiModelProperty(notes = "占比，%")
-    private BigDecimal ratio;
+    @ApiModelProperty(notes = "访问次数")
+    private Integer visitCount;
 
-    @ApiModelProperty(notes = "日期, 以北京时间表示")
-    private String date;
+    @ApiModelProperty(notes = "访客数(UV)")
+    private Integer visitorCount;
+
+    @ApiModelProperty(notes = "新访客数")
+    private Integer newVisitorCount;
+
+    @ApiModelProperty(notes = "IP 数")
+    private Integer ipCount;
 }

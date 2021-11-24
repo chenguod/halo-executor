@@ -2,7 +2,7 @@ package com.cgd.xxljobexecutor.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.cgd.xxljobexecutor.dao.SiteListDao;
+import com.cgd.xxljobexecutor.dao.executor.SiteListDao;
 import com.cgd.xxljobexecutor.model.SiteListModel;
 import com.cgd.xxljobexecutor.service.SiteListService;
 import lombok.extern.slf4j.Slf4j;

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cgd.xxljobexecutor.dao.executor.SiteTrendAreaDao">
+
+    <resultMap type="com.cgd.xxljobexecutor.model.SiteTrendAreaModel" id="ResultMap">
+        <result property="siteId" column="site_id" jdbcType="VARCHAR"/>
+        <result property="area" column="area" jdbcType="VARCHAR"/>
+        <result property="pvCount" column="pv_count" jdbcType="INTEGER"/>
+        <result property="visitCount" column="visit_count" jdbcType="INTEGER"/>
+        <result property="visitorCount" column="visitor_count" jdbcType="INTEGER"/>
+        <result property="newVisitorCount" column="new_visitor_count" jdbcType="INTEGER"/>
+        <result property="ipCount" column="ip_count" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap type="com.cgd.xxljobexecutor.model.DTO.AreaDTO" id="AreaMap">
+        <result property="name" column="area" jdbcType="VARCHAR"/>
+        <result property="value" column="total" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <insert id="insert"  parameterType="com.cgd.xxljobexecutor.model.SiteTrendAreaModel">
+        replace into site_trend_area values
+        <foreach collection="list" item="item" index="index" separator=",">
+        (#{item.siteId,jdbcType=VARCHAR},#{item.area,jdbcType=VARCHAR},#{item.pvCount,jdbcType=INTEGER},#{item.visitCount,jdbcType=INTEGER},#{item.visitorCount,jdbcType=INTEGER},
+            #{item.newVisitorCount,jdbcType=INTEGER},#{item.ipCount,jdbcType=INTEGER})
+        </foreach>
+    </insert>
+
+    <select id="selectAll" resultMap="AreaMap">
+        SELECT SUM(pv_count) AS total, area
+        FROM site_trend_area GROUP BY area ORDER BY total DESC LIMIT 10
+    </select>
+</mapper>

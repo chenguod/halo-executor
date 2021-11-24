@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cgd.xxljobexecutor.dao.executor.RefreshTokenDao">
+
+    <insert id="insert" parameterType="java.lang.String">
+        replace into refresh_token values
+        (0,#{refreshToken,jdbcType=VARCHAR},#{accessToken,jdbcType=VARCHAR},now())
+    </insert>
+
+    <select id="getRefreshToken" resultType="java.util.Map">
+        SELECT refresh_token as refreshToken,access_token as accessToken FROM refresh_token
+    </select>
+</mapper>

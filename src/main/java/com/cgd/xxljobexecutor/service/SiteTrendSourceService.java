@@ -6,5 +6,5 @@ package com.cgd.xxljobexecutor.service;
  * @date 2021/7/3 20:40
  */
 public interface SiteTrendSourceService {
-    void saveInfo(String response, String siteId, String date);
+    void saveInfo(String response, String siteId);
 }

@@ -2,8 +2,7 @@ package com.cgd.xxljobexecutor.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.cgd.xxljobexecutor.dao.SiteTrendOriginDao;
-import com.cgd.xxljobexecutor.model.SiteTrendAreaModel;
+import com.cgd.xxljobexecutor.dao.executor.SiteTrendOriginDao;
 import com.cgd.xxljobexecutor.model.SiteTrendOriginModel;
 import com.cgd.xxljobexecutor.service.SiteTrendOriginService;
 import org.springframework.beans.factory.annotation.Autowired;

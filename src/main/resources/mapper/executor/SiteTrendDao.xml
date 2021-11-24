@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cgd.xxljobexecutor.dao.executor.SiteTrendDao">
+
+    <resultMap type="com.cgd.xxljobexecutor.model.SiteTrendModel" id="ResultMap">
+        <result property="siteId" column="site_id" jdbcType="VARCHAR"/>
+        <result property="pvCount" column="pv_count" jdbcType="INTEGER"/>
+        <result property="visitCount" column="visit_count" jdbcType="INTEGER"/>
+        <result property="visitorCount" column="visitor_count" jdbcType="INTEGER"/>
+        <result property="newVisitorCount" column="new_visitor_count" jdbcType="INTEGER"/>
+        <result property="ipCount" column="ip_count" jdbcType="INTEGER"/>
+        <result property="date" column="date" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap type="com.cgd.xxljobexecutor.model.DTO.VisitDTO" id="VisitMap">
+        <result property="pvCount" column="pv_count" jdbcType="INTEGER"/>
+        <result property="visitCount" column="visit_count" jdbcType="INTEGER"/>
+        <result property="visitorCount" column="visitor_count" jdbcType="INTEGER"/>
+        <result property="newVisitorCount" column="new_visitor_count" jdbcType="INTEGER"/>
+        <result property="ipCount" column="ip_count" jdbcType="INTEGER"/>
+        <result property="month" column="month" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="insert"  parameterType="com.cgd.xxljobexecutor.model.SiteTrendModel">
+        replace into site_trend values
+        (#{siteId,jdbcType=VARCHAR},#{pvCount,jdbcType=INTEGER},#{visitCount,jdbcType=INTEGER},#{visitorCount,jdbcType=INTEGER},
+        #{newVisitorCount,jdbcType=INTEGER},#{ipCount,jdbcType=INTEGER},#{date,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertMonth"  parameterType="com.cgd.xxljobexecutor.model.SiteTrendModel">
+        replace into site_trend_month values
+        (#{siteId,jdbcType=VARCHAR},#{pvCount,jdbcType=INTEGER},#{visitCount,jdbcType=INTEGER},#{visitorCount,jdbcType=INTEGER},
+        #{newVisitorCount,jdbcType=INTEGER},#{ipCount,jdbcType=INTEGER},#{date,jdbcType=VARCHAR})
+    </insert>
+    <select id="selectVisitInfo" resultMap="VisitMap">
+        SELECT pv_count	,visit_count,visitor_count,new_visitor_count,ip_count,CONCAT(RIGHT(DATE,2),'月') as month
+        FROM site_trend_month ORDER BY DATE ASC LIMIT 12
+        <!--where 1 = 1
+        <if test="siteId != null and siteId != ''">
+            and site_id = #{siteId,jdbcType=VARCHAR}
+        </if>
+        <if test="pvCount != null">
+            and pv_count = #{pvCount,jdbcType=INTEGER}
+        </if>
+        <if test="pvRatio != null">
+            and pv_ratio = #{pvRatio,jdbcType=VARCHAR}
+        </if>
+        <if test="visitCount != null">
+            and visit_count = #{visitCount,jdbcType=VARCHAR}
+        </if>
+        <if test="visitorCount != null">
+            and visitor_count = #{visitorCount,jdbcType=VARCHAR}
+        </if>
+        <if test="newVisitorCount != null">
+            and new_visitor_count = #{newVisitorCount,jdbcType=VARCHAR}
+        </if>
+        <if test="newVisitorRatio != null">
+            and new_visitor_ratio = #{newVisitorRatio,jdbcType=VARCHAR}
+        </if>
+        <if test="ipCount != null">
+            and ip_count = #{ipCount,jdbcType=VARCHAR}
+        </if>
+        <if test="bounceRatio != null">
+            and bounce_ratio = #{bounceRatio,jdbcType=VARCHAR}
+        </if>
+        <if test="avgVisitTime != null">
+            and avg_visit_time = #{avgVisitTime,jdbcType=VARCHAR}
+        </if>
+        <if test="avgVisitPages != null">
+            and avg_visit_pages = #{avgVisitPages,jdbcType=VARCHAR}
+        </if>
+        <if test="date != null and date != ''">
+            and date = #{date,jdbcType=VARCHAR}
+        </if>
+        GROUP BY site_id,date-->
+    </select>
+
+    <select id="selectSitePvCount" resultType="java.util.Map">
+        SELECT SUM(pv_count) AS pv,SUM(visitor_count) AS uv FROM site_trend_month
+    </select>
+</mapper>

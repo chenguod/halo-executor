@@ -26,9 +26,6 @@ public class SiteTrendSourceModel {
     @ApiModelProperty(notes = "浏览量(PV)")
     private Integer pvCount;
 
-    @ApiModelProperty(notes = "浏览量占比，%")
-    private BigDecimal pvRatio;
-
     @ApiModelProperty(notes = "访问次数")
     private Integer visitCount;
 
@@ -38,21 +35,6 @@ public class SiteTrendSourceModel {
     @ApiModelProperty(notes = "新访客数")
     private Integer newVisitorCount;
 
-    @ApiModelProperty(notes = "新访客比率，%")
-    private BigDecimal newVisitorRatio;
-
     @ApiModelProperty(notes = "IP 数")
     private Integer ipCount;
-
-    @ApiModelProperty(notes = "跳出率，%")
-    private BigDecimal bounceRatio;
-
-    @ApiModelProperty(notes = "平均访问时长，秒")
-    private Integer avgVisitTime;
-
-    @ApiModelProperty(notes = "平均访问时长，秒")
-    private Integer avgVisitPages;
-
-    @ApiModelProperty(notes = "月")
-    private String date;
 }

@@ -1,9 +1,9 @@
 package com.cgd.xxljobexecutor.service.impl;
 
-import com.cgd.xxljobexecutor.dao.SiteTrendAreaDao;
-import com.cgd.xxljobexecutor.dao.SiteTrendDao;
-import com.cgd.xxljobexecutor.dao.SiteTrendEngineDao;
-import com.cgd.xxljobexecutor.dao.SiteTrendSourceDao;
+import com.cgd.xxljobexecutor.dao.executor.SiteTrendAreaDao;
+import com.cgd.xxljobexecutor.dao.executor.SiteTrendDao;
+import com.cgd.xxljobexecutor.dao.executor.SiteTrendEngineDao;
+import com.cgd.xxljobexecutor.dao.executor.SiteTrendSourceDao;
 import com.cgd.xxljobexecutor.model.DTO.AreaDTO;
 import com.cgd.xxljobexecutor.model.DTO.VisitDTO;
 import com.cgd.xxljobexecutor.model.VO.AreaVO;
@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -72,13 +73,13 @@ public class BaiduCountServiceImpl implements BaiduCountService {
     public AreaVO getAreaDta() {
         List<AreaDTO> list = siteTrendAreaDao.selectAll();
         AreaVO vo = new AreaVO();
-        vo.setTitle(new Title("地域分布", "left", "0px", "数据来源于百度统计"));
+        vo.setTitle(new Title("地域分布Top10", "left", "0px", "数据来源于百度统计"));
         vo.setTooltip(new Tooltip("item"));
-        vo.setLegend(new Legend("vertical",null, "60px","10px"));
+        vo.setLegend(new Legend("vertical",null, "60px","left"));
         Feature feature = new Feature(null, new SaveAsImage("png"), new Restore(true));
         vo.setToolbox(new Toolbox(feature));
         List<Series<AreaDTO>> seriesList = new ArrayList<>();
-        seriesList.add(new Series<AreaDTO>("来源地区","pie",null,"50%",list,new Emphasis(new ItemStyle(10,0,"rgba(0, 0, 0, 0.5)"))));
+        seriesList.add(new Series<AreaDTO>("来源地区","pie",null,"50%",list,new Emphasis(new ItemStyle(10,0,"rgba(0, 0, 0, 0.5)")),new LabelLine(true,30)));
         vo.setSeries(seriesList);
         return vo;
     }
@@ -94,8 +95,13 @@ public class BaiduCountServiceImpl implements BaiduCountService {
         vo.setLegend(new Legend("horizontal",legend,"top","120px"));
         List<Series<AreaDTO>> seriesList = new ArrayList<>();
         seriesList.add(new Series<AreaDTO>("访问来源","pie",null,null,dtoList,null,"single",new LabelLine(false,null)));
-        seriesList.add(new Series<AreaDTO>("访问来源","pie",null,null,dtoList1,null,null,new LabelLine(null,30)));
+        seriesList.add(new Series<AreaDTO>("访问来源","pie",null,null,dtoList1,null,null,new LabelLine(true,30)));
         vo.setSeries(seriesList);
         return vo;
+    }
+
+    @Override
+    public Map getPvCount() {
+        return siteTrendDao.selectSitePvCount();
     }
 }

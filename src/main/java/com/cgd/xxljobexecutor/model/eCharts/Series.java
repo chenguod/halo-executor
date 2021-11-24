@@ -25,6 +25,15 @@ public class Series<T> {
     private String selectedMode;
     private LabelLine labelLine;
 
+    public Series(String name, String type, String stack, String radius, List<T> data, Emphasis emphasis,LabelLine labelLine) {
+        this.name = name;
+        this.type = type;
+        this.stack = stack;
+        this.radius = radius;
+        this.data = data;
+        this.emphasis = emphasis;
+        this.labelLine = labelLine;
+    }
     public Series(String name, String type, String stack, String radius, List<T> data, Emphasis emphasis) {
         this.name = name;
         this.type = type;

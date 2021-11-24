@@ -11,8 +11,5 @@ import java.util.List;
  */
 public interface SiteTrendService {
 
-    void saveInfo(String response, String siteId, String date);
-    void saveMonthInfo(String response, String siteId, String date);
-
-    List<SiteTrendModel> getSiteTrend();
+    void saveInfo(String response, String siteId, String date, String param);
 }
