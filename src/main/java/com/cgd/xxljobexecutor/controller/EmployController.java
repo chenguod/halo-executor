@@ -2,21 +2,14 @@ package com.cgd.xxljobexecutor.controller;
 
 import com.cgd.xxljobexecutor.model.ResponseMessages;
 import com.cgd.xxljobexecutor.model.WebSiteModel;
-import com.cgd.xxljobexecutor.service.*;
+import com.cgd.xxljobexecutor.service.WebSiteService;
 import com.cgd.xxljobexecutor.utils.AnalyzingXML;
-import com.cgd.xxljobexecutor.utils.DateUtils;
-import com.cgd.xxljobexecutor.utils.HttpRequestUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.text.ParseException;
-import java.util.List;
 
 /**
  * @author 晓果冻
@@ -27,7 +20,6 @@ import java.util.List;
 @Slf4j
 @Api(tags = "网站收录")
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RefreshScope
 public class EmployController {
 
     @Autowired

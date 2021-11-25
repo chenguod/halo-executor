@@ -6,12 +6,12 @@ import com.alibaba.fastjson.JSONObject;
 import jodd.http.HttpRequest;
 import jodd.http.HttpResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Objects;
 import java.util.TimeZone;
 
 /**
@@ -116,7 +116,7 @@ public class GitHubUtil {
                 JSONArray tree = responseData.getJSONArray("tree");
                 for (int i = 0; i < tree.size(); i++) {
                     JSONObject file = tree.getJSONObject(i);
-                    if (StringUtils.equals(filePath, file.getString("path"))) {
+                    if (Objects.equals(filePath, file.getString("path"))) {
                         body.put("sha", file.getString("sha"));
                         break;
                     }

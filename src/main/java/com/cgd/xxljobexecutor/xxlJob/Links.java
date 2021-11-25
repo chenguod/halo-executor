@@ -1,20 +1,15 @@
 package com.cgd.xxljobexecutor.xxlJob;
 
-import com.alibaba.fastjson.JSONObject;
 import com.cgd.xxljobexecutor.dao.executor.LinkRecordDao;
 import com.cgd.xxljobexecutor.dao.halo.LinksDao;
 import com.cgd.xxljobexecutor.model.LinksModel;
 import com.cgd.xxljobexecutor.utils.CheckLinks;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.handler.annotation.XxlJob;
-import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**

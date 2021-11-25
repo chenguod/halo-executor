@@ -1,11 +1,9 @@
 package com.cgd.xxljobexecutor.model.DTO;
 
-import com.cgd.xxljobexecutor.model.eCharts.*;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.yaml.snakeyaml.Yaml;
 
 /**
  * @author 晓果冻

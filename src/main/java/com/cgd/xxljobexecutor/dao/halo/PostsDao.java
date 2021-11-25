@@ -12,5 +12,5 @@ import java.util.List;
 @Mapper
 public interface PostsDao {
 
-    List<String> getPosts();
+    List<String> getPosts(String site);
 }

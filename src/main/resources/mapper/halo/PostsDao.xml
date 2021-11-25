@@ -3,7 +3,7 @@
 
 <mapper namespace="com.cgd.xxljobexecutor.dao.halo.PostsDao">
 
-    <select id="getPosts" resultType="java.lang.String">
-        SELECT  CONCAT('* ','[',title,']','(',CONCAT('https://www.chenmx.net?p=',id),')','\n') AS title FROM posts WHERE STATUS = 0
+    <select id="getPosts" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT  CONCAT('* ','[',title,']','(',CONCAT(${site},id),')','\n') AS title FROM posts WHERE STATUS = 0
     </select>
 </mapper>

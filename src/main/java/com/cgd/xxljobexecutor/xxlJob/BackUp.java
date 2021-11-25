@@ -29,14 +29,8 @@ public class BackUp {
         String loginName = gitHubUser.getString("login");
         String repository = "halo-blog";
         String repositoryDesc = "✍️ 晓果冻的个人博客 - 一个热爱生活的90后";
-        JSONObject body = new JSONObject();
-        body.put("name", repository);
-        body.put("description", repositoryDesc);
-        body.put("homepage", site);
-        body.put("has_wiki", false);
-        body.put("has_projects", false);
         GitHubUtil.createOrUpdateGitHubRepo(param, loginName, repository, repositoryDesc, site);
-        List<String> list = postsDao.getPosts();
+        List<String> list = postsDao.getPosts("'"+site+"?p='");
         StringBuilder sb = new StringBuilder();
         list.stream().forEach(e -> {
             sb.append(e);
