@@ -10,8 +10,6 @@ import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.handler.annotation.XxlJob;
 import com.xxl.job.core.log.XxlJobLogger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -23,7 +21,6 @@ import java.util.Map;
  * @date 2021/6/27 8:50
  */
 
-@RefreshScope
 @Component
 public class BaiduStatistics {
 

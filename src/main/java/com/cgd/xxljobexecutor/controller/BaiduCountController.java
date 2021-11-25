@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.cgd.xxljobexecutor.dao.executor.LinkRecordDao;
 import com.cgd.xxljobexecutor.dao.executor.RefreshTokenDao;
 import com.cgd.xxljobexecutor.dao.halo.LinksDao;
+import com.cgd.xxljobexecutor.dao.halo.PostsDao;
 import com.cgd.xxljobexecutor.model.LinksModel;
 import com.cgd.xxljobexecutor.model.VO.AreaVO;
 import com.cgd.xxljobexecutor.model.VO.SourceVO;
@@ -30,6 +31,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
 
@@ -50,6 +52,9 @@ public class BaiduCountController {
 
     @Autowired
     private RefreshTokenDao refreshTokenDao;
+
+    @Autowired
+    private PostsDao postsDao;
 
 
     @Autowired
@@ -87,23 +92,4 @@ public class BaiduCountController {
         return new ResponseMessage<>(ResponseMessage.SUCCESS_CODE, "success", map);
     }
 
-    public static void main(String[] args) {
-        String site = "https://www.chenmx.net";
-        String pat = "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";
-        JSONObject gitHubUser = GitHubUtil.getGitHubUser(pat);
-
-        String loginName = gitHubUser.getString("login");
-        String repository = "halo-blog";
-        String repositoryDesc = "✍  晓果冻的个人博客-一个热爱生活的90后";
-        JSONObject body = new JSONObject();
-        body.put("name", repository);
-        body.put("description", repositoryDesc);
-        body.put("homepage", site);
-        body.put("has_wiki", false);
-        body.put("has_projects", false);
-        boolean ok = GitHubUtil.createOrUpdateGitHubRepo(pat, loginName, repository, "✍️ 晓果冻的个人博客 - 一个热爱生活的90后", site);
-        System.out.println();
-
-
-    }
 }

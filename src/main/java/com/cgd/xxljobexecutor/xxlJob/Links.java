@@ -22,7 +22,6 @@ import java.util.List;
  * @version 1.0
  * @date 2021/10/24 13:38
  */
-@RefreshScope
 @Component
 @Slf4j
 public class Links {

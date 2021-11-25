@@ -98,7 +98,7 @@ public class GitHubUtil {
     public static boolean updateFile(String pat, String loginName, String repoName, String filePath, byte[] content) {
         String fullRepoName = loginName + "/" + repoName;
         try {
-            HttpResponse response = HttpRequest.get("https://api.github.com/repos/" + fullRepoName + "/git/trees/master").header("Authorization", "token " + pat).
+            HttpResponse response = HttpRequest.get("https://api.github.com/repos/" + fullRepoName + "/git/trees/main").header("Authorization", "token " + pat).
                     connectionTimeout(7000).timeout(60000).header("User-Agent", USER_AGENT).send();
             int statusCode = response.statusCode();
             response.charset("UTF-8");
